@@ -1,6 +1,36 @@
-# madu-front
+# Madu 
+### Frontoffice
 
-## Project setup
+
+> 🍃 Welcome to Hetic W3 final project ! 🥕
+
+
+## Concept 🧐
+
+Madu is a Mobile app that lists on a map all eco-friendly adresses such as shops, resturants etc., in order to create more ethical and engaged consumers.
+
+## Brief 🤓
+
+Developing a Back-office whose feature are:
+
+* Dashboard for clients management (companies or schools)
+* Dashboad for POI management
+* POI interactive map
+* Login
+
+
+## Team 👩🏻‍💻 👨🏻‍💻
+
+* Quentin Aimé (Frontend Developer)
+* Federica Alfano (Frontend Developer)
+* Aymeline Chemin (UX/UI Designer)
+* Mélanie Da Costa (UX/UI Designer)
+* Rainald Durand (Backend Developer)
+* Mathieu Gelbon (Backend Developer)
+* Joel Pokam (Frontend Developer)
+
+
+## Project setup 🚀
 ```
 yarn install
 ```
@@ -24,6 +54,3 @@ yarn test:unit
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
