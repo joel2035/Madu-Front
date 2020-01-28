@@ -1,40 +1,25 @@
 <template>
-    <div class="">
-        Login
-    </div>
+  <div class="">
+    Login
+  </div>
 </template>
 
 <script>
-
 export default {
+  components: {},
 
-    components: {
+  props: {},
 
-    },
+  data: function() {
+    return {};
+  },
 
-    props: {
+  computed: {},
 
-    },
+  mounted: function() {},
 
-    data: function(){
-        return {
-
-        };
-    },
-
-    computed: {
-
-    },
-
-    mounted: function(){
-
-    },
-
-    methods: {
-    },
+  methods: {}
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

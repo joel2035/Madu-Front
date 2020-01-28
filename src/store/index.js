@@ -12,6 +12,6 @@ export default new Vuex.Store({
   state: state,
   mutations: mutations,
   actions: actions,
-  getters: getters,
+  getters: getters
   // modules: {}
 });
