@@ -1,12 +1,39 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <login v-if="!UserIsLogged"></login>
+    <div v-else>
+      <div class="header"></div>
+      <div class="sidebar"></div>
+      <router-view></router-view>
     </div>
-    <router-view />
   </div>
 </template>
+
+<script>
+import Login from "./views/Login.vue";
+
+export default {
+  components: {
+    Login
+  },
+
+  props: {},
+
+  data: function() {
+    return {};
+  },
+
+  computed: {
+    UserIsLogged() {
+      return this.$store.state.currentUser.authenticated;
+    }
+  },
+
+  mounted: function() {},
+
+  methods: {}
+};
+</script>
 
 <style lang="scss">
 #app {

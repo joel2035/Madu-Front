@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Map from "../components/map";
+import Map from "../components/atoms/Map";
 export default {
   name: "home",
   components: {
