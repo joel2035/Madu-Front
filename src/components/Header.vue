@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="logo">
-      <img src="" alt="MADU logo">
+      <img src="" alt="MADU logo" />
     </div>
     <div class="interactions">
       <el-input class="search-input" v-model="searchFilter"></el-input>
@@ -14,29 +14,21 @@
 import "vue-awesome/icons/power-off";
 
 export default {
-  components: {
+  components: {},
+
+  props: {},
+
+  data: function() {
+    return {
+      searchFilter: ""
+    };
   },
 
-    props: {
+  computed: {},
 
-    },
+  mounted: function() {},
 
-    data: function(){
-        return {
-          searchFilter: ''
-        };
-    },
-
-    computed: {
-
-    },
-
-    mounted: function(){
-
-    },
-
-    methods: {
-    },
+  methods: {}
 };
 </script>
 
