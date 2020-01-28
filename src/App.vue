@@ -2,49 +2,41 @@
   <div id="app">
     <login v-if="!UserIsLogged"></login>
     <div v-else>
-      <div class="header"></div>
+      <Header></Header>
       <div class="sidebar"></div>
       <router-view></router-view>
     </div>
   </div>
-</template> 
+</template>
 
 <script>
 import Login from "./views/Login.vue";
+import Header from "./components/Header.vue";
 
 export default {
+  components: {
+    Login,
+    Header
+  },
+  computed: {
+    UserIsLogged() {
+      return true;
+      // return this.$store.state.currentUser.authenticated;
+    }
+  },
+  mounted: function(){
 
-    components: {
-      Login,
-    },
+  },
 
-    props: {
-
-    },
-
-    data: function(){
-        return {
-
-        };
-    },
-
-    computed: {
-      UserIsLogged() {
-        return this.$store.state.currentUser.authenticated
-      }
-    },
-
-    mounted: function(){
-
-    },
-
-    methods: {
-    },
+  methods: {
+  },
 };
-
 </script>
 
 <style lang="scss">
+body {
+  margin: 0;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
