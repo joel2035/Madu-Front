@@ -1,6 +1,6 @@
 export default {
-    currentUser: {
-        uid: '',
-        authenticated: false,
-    }
-}
+  currentUser: {
+    uid: "",
+    authenticated: false
+  }
+};

@@ -1,13 +1,15 @@
 <template>
   <div class="home">
-    Home test
+    <Map />
   </div>
 </template>
 
 <script>
+import Map from "../components/atoms/Map";
 export default {
   name: "home",
   components: {
+    Map
   }
 };
 </script>

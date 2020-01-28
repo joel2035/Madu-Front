@@ -1,7 +1,5 @@
 <template>
-  <div class="">
-    Login
-  </div>
+  <div class=""></div>
 </template>
 
 <script>
@@ -22,4 +20,4 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" module></style>

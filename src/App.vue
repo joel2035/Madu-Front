@@ -7,41 +7,32 @@
       <router-view></router-view>
     </div>
   </div>
-</template> 
+</template>
 
 <script>
 import Login from "./views/Login.vue";
 
 export default {
+  components: {
+    Login
+  },
 
-    components: {
-      Login,
-    },
+  props: {},
 
-    props: {
+  data: function() {
+    return {};
+  },
 
-    },
+  computed: {
+    UserIsLogged() {
+      return this.$store.state.currentUser.authenticated;
+    }
+  },
 
-    data: function(){
-        return {
+  mounted: function() {},
 
-        };
-    },
-
-    computed: {
-      UserIsLogged() {
-        return this.$store.state.currentUser.authenticated
-      }
-    },
-
-    mounted: function(){
-
-    },
-
-    methods: {
-    },
+  methods: {}
 };
-
 </script>
 
 <style lang="scss">
