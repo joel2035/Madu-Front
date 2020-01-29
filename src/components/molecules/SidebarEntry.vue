@@ -36,12 +36,13 @@ export default {
   display: flex;
   align-items: center;
   padding: 10px;
+  color: white;
   i {
     margin-right: 10px;
   }
   &:hover {
     cursor: pointer;
-    background-color: #bbb;
+    background-color: #247ba0;
   }
 }
 </style>

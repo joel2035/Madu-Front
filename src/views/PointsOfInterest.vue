@@ -1,23 +1,41 @@
 <template>
-  <div class=""></div>
+  <div class="poi">
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="Liste" name="first">
+        <PoiTable />
+      </el-tab-pane>
+      <el-tab-pane label="Map" name="second">
+        <Map />
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
+import Map from "../components/atoms/Map";
+import PoiTable from "../components/molecules/PoiTable";
 export default {
-  components: {},
+  components: {
+    Map,
+    PoiTable
+  },
 
   props: {},
 
-  data: function() {
-    return {};
+  data() {
+    return {
+      activeName: "first"
+    };
   },
 
   computed: {},
 
-  mounted: function() {},
-
-  methods: {}
+  mounted: function() {}
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.poi {
+  padding: 2rem;
+}
+</style>

@@ -24,9 +24,14 @@ export default {
     return {
       sidebarEntries: [
         {
-          name: "home",
+          name: "Home",
           link: "home",
-          icon: "el-icon-s-home"
+          icon: "el-icon-house"
+        },
+        {
+          name: "POI",
+          link: "poi-list",
+          icon: "el-icon-shopping-bag-1"
         }
       ]
     };
@@ -51,7 +56,7 @@ export default {
   left: 0;
   top: 81px;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #0b4f6c;
   .version {
     position: absolute;
     bottom: 15px;
