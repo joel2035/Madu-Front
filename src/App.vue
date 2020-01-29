@@ -3,8 +3,10 @@
     <login v-if="!UserIsLogged"></login>
     <div v-else>
       <Header></Header>
-      <div class="sidebar"></div>
-      <router-view></router-view>
+      <Sidebar></Sidebar>
+      <div class="main">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -12,11 +14,13 @@
 <script>
 import Login from "./views/Login.vue";
 import Header from "./components/molecules/Header.vue";
+import Sidebar from "./components/organisms/Sidebar.vue";
 
 export default {
   components: {
     Login,
-    Header
+    Header,
+    Sidebar
   },
   computed: {
     UserIsLogged() {
@@ -38,7 +42,6 @@ body {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
@@ -53,5 +56,9 @@ body {
       color: #42b983;
     }
   }
+}
+
+.main {
+  margin-left: 200px;
 }
 </style>

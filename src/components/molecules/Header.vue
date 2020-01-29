@@ -5,7 +5,9 @@
     </div>
     <div class="interactions">
       <el-input class="search-input" v-model="searchFilter"></el-input>
-      <v-icon name="power-off"></v-icon>
+      <div class="logout-icon">
+        <v-icon name="power-off"></v-icon>
+      </div>
     </div>
   </div>
 </template>
@@ -36,23 +38,32 @@ export default {
 .header {
   display: flex;
   align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #CCC;
   .logo {
-    width: 10%;
+    width: 20%;
   }
   .interactions {
-    width: 90%;
+    width: 80%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 0 30px;
     .search-input {
       input {
-        width: 100px;
+        width: 200px;
         border-radius: 30px;
         transition: all ease-in-out 0.25s;
+        border: 1px solid #ccc;
         &:focus {
-          width: 200px;
+          width: 400px;
         }
       }
+    }
+    .logout-icon {
+      border-radius: 30px;
+      padding: 11px 11px 5px 11px;
+      border: 1px solid #ccc;
     }
   }
 }
