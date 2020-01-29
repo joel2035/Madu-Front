@@ -1,44 +1,44 @@
 <template>
   <div id="app">
-    <login></login>
-    <div class="header"></div>
-    <div class="sidebar"></div>
-    <router-view></router-view>
+    <login v-if="!UserIsLogged"></login>
+    <div v-else>
+      <Header></Header>
+      <Sidebar></Sidebar>
+      <div class="main">
+        <router-view></router-view>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Login from "./views/Login.vue";
+import Header from "./components/molecules/Header.vue";
+import Sidebar from "./components/organisms/Sidebar.vue";
 
 export default {
   components: {
-    Login
+    Login,
+    Header,
+    Sidebar
   },
-
-  props: {},
-
-  data: function() {
-    return {};
-  },
-
-  // computed: {
-  //   UserIsLogged() {
-  //     return this.$store.state.currentUser.authenticated;
-  //   }
-  // },
-
-  mounted: function() {},
-
-  methods: {}
+  computed: {
+    UserIsLogged() {
+      return true;
+      // return this.$store.state.currentUser.authenticated;
+    }
+  }
 };
 </script>
 
 <style lang="scss">
+body {
+  margin: 0;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
@@ -53,5 +53,9 @@ export default {
       color: #42b983;
     }
   }
+}
+
+.main {
+  margin-left: 200px;
 }
 </style>
