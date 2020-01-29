@@ -13,22 +13,18 @@
 
 <script>
 import Map from "../components/atoms/Map";
-import PoiTable from "../components/molecules/PoiTable";
+import PoiTable from "../components/organisms/PoiTable";
 export default {
   components: {
     Map,
     PoiTable
   },
 
-  props: {},
-
   data() {
     return {
       activeName: "first"
     };
   },
-
-  computed: {},
 
   mounted: function() {}
 };

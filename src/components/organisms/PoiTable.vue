@@ -9,7 +9,7 @@
     ></el-table-column>
     <el-table-column>
       <template slot-scope="scope">
-        <el-button size="mini" @click="goDetail(scope.row)">Editer</el-button>
+        <el-button size="mini" @click="goDetail(scope.row)">Détails</el-button>
       </template>
     </el-table-column>
   </el-table>
