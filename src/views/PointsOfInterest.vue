@@ -1,8 +1,12 @@
 <template>
   <div class="poi">
     <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="Map" name="first"> <Map /></el-tab-pane>
-      <el-tab-pane label="Liste" name="second"><PoiTable /></el-tab-pane>
+      <el-tab-pane label="Liste" name="first">
+        <PoiTable />
+      </el-tab-pane>
+      <el-tab-pane label="Map" name="second">
+        <Map />
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -30,4 +34,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.poi {
+  padding: 2rem;
+}
+</style>

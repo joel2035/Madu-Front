@@ -1,20 +1,22 @@
 <template>
-  <el-table :data="data" style="width: 100%">
+  <el-table :data="dataTable" style="width: 100%">
     <el-table-column
       v-for="(column, idx) in columns"
       :key="idx"
       :prop="column.prop"
       :label="column.label"
-    >
-    </el-table-column>
+      sortable
+    ></el-table-column>
     <el-table-column>
-      <el-button @click="goDetail" type="text" size="small">Detail</el-button>
-      <el-button @click="goEdit" type="text" size="small">Modifier</el-button>
+      <template slot-scope="scope">
+        <el-button size="mini" @click="goDetail(scope.row)">Editer</el-button>
+      </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -68,8 +70,9 @@ export default {
           label: "Greenscore"
         }
       ],
-      data: [
+      dataTable: [
         {
+          id: 1,
           name: "GIVEN",
           address: "89 rue de Bagnolet",
           zipcode: "75020",
@@ -81,10 +84,10 @@ export default {
           glutenfree: "Option",
           organic: "En partie",
           accessibility: "",
-          greenscore: "",
-          edit: "Modifier"
+          greenscore: ""
         },
         {
+          id: 2,
           name: "ABATTOIR VEGETAL",
           address: "61 rue Ramey",
           zipcode: "75018",
@@ -96,10 +99,10 @@ export default {
           glutenfree: "",
           organic: "Full",
           accessibility: "",
-          greenscore: "",
-          edit: "Modifier"
+          greenscore: ""
         },
         {
+          id: 3,
           name: "LE MEZZE DU CHEF",
           address: "80 rue de Ménilmontant",
           zipcode: "75020",
@@ -111,11 +114,25 @@ export default {
           glutenfree: "OPTION",
           organic: "",
           accessibility: "",
-          greenscore: "",
-          edit: "Modifier"
+          greenscore: ""
         }
       ]
     };
+  },
+
+  mounted() {
+    axios
+      .get("/poi-api-test.js")
+
+      .then(response =>
+        // eslint-disable-next-line no-console
+        console.log(response.data)
+      );
+  },
+  methods: {
+    goDetail(row) {
+      this.$router.push({ path: `/poi/${row.id}` });
+    }
   }
 };
 </script>
