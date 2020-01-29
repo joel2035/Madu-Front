@@ -9,7 +9,6 @@ import L from "leaflet";
 
 export default {
   name: "Map",
-  components: {},
   mounted() {
     const mymap = L.map(this.$refs["mapElement"]).setView([51.505, -0.09], 13);
     L.tileLayer(
