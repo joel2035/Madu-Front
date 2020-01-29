@@ -1,7 +1,7 @@
 <template>
   <div class="entry" @click="redirect">
     <i :class="icon"></i>
-    <div>{{ name }}</div>
+    <div class="name">{{ name }}</div>
   </div>
 </template>
 
