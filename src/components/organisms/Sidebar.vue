@@ -20,9 +20,6 @@ export default {
   components: {
     SidebarEntry
   },
-
-  props: {},
-
   data: function() {
     return {
       sidebarEntries: [
@@ -34,7 +31,6 @@ export default {
       ]
     };
   },
-
   computed: {
     version() {
       try {
@@ -44,11 +40,7 @@ export default {
         return "";
       }
     }
-  },
-
-  mounted: function() {},
-
-  methods: {}
+  }
 };
 </script>
 

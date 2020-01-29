@@ -16,21 +16,11 @@
 import "vue-awesome/icons/power-off";
 
 export default {
-  components: {},
-
-  props: {},
-
   data: function() {
     return {
       searchFilter: ""
     };
-  },
-
-  computed: {},
-
-  mounted: function() {},
-
-  methods: {}
+  }
 };
 </script>
 
@@ -39,7 +29,7 @@ export default {
   display: flex;
   align-items: center;
   padding: 20px 0;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #ccc;
   .logo {
     width: 20%;
   }

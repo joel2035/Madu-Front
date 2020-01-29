@@ -27,10 +27,7 @@ export default {
       return true;
       // return this.$store.state.currentUser.authenticated;
     }
-  },
-  mounted: function() {},
-
-  methods: {}
+  }
 };
 </script>
 

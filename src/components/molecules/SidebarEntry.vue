@@ -7,8 +7,6 @@
 
 <script>
 export default {
-  components: {},
-
   props: {
     name: {
       type: String,
@@ -23,15 +21,6 @@ export default {
       required: true
     }
   },
-
-  data: function() {
-    return {};
-  },
-
-  computed: {},
-
-  mounted: function() {},
-
   methods: {
     redirect() {
       this.$router.push({
