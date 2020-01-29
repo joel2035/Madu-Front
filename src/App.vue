@@ -1,11 +1,9 @@
 <template>
   <div id="app">
-    <login v-if="!UserIsLogged"></login>
-    <div v-else>
-      <div class="header"></div>
-      <div class="sidebar"></div>
-      <router-view></router-view>
-    </div>
+    <login></login>
+    <div class="header"></div>
+    <div class="sidebar"></div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -23,11 +21,11 @@ export default {
     return {};
   },
 
-  computed: {
-    UserIsLogged() {
-      return this.$store.state.currentUser.authenticated;
-    }
-  },
+  // computed: {
+  //   UserIsLogged() {
+  //     return this.$store.state.currentUser.authenticated;
+  //   }
+  // },
 
   mounted: function() {},
 
