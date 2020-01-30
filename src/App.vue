@@ -17,6 +17,7 @@ import Header from "./components/molecules/Header.vue";
 import Sidebar from "./components/organisms/Sidebar.vue";
 
 export default {
+  
   components: {
     Login,
     Header,
