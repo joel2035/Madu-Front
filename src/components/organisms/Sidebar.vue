@@ -24,9 +24,14 @@ export default {
     return {
       sidebarEntries: [
         {
-          name: "home",
+          name: "Home",
           link: "home",
           icon: "el-icon-s-home"
+        },
+        {
+          name: "Entreprises",
+          link: "company-list",
+          icon: "el-icon-shopping-bag-2"
         }
       ]
     };
