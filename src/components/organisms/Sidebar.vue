@@ -26,12 +26,17 @@ export default {
         {
           name: "Home",
           link: "home",
-          icon: "el-icon-s-home"
+          icon: "el-icon-house"
         },
         {
           name: "Entreprises",
           link: "company-list",
           icon: "el-icon-shopping-bag-2"
+        },
+        {
+          name: "POI",
+          link: "poi-list",
+          icon: "el-icon-shopping-bag-1"
         }
       ]
     };
@@ -56,7 +61,7 @@ export default {
   left: 0;
   top: 81px;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #0b4f6c;
   .version {
     position: absolute;
     bottom: 15px;
