@@ -5,7 +5,7 @@ import PointsOfInterest from "../views/PointsOfInterest.vue";
 import Poi from "../views/PointOfInterest.vue";
 import Companies from "../views/Companies.vue";
 import Company from "../views/Company.vue";
-// import Login from "../views/Login.vue";
+import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -15,11 +15,11 @@ const routes = [
     name: "home",
     component: Home
   },
-  // {
-  //   path: "/login",
-  //   name: "login",
-  //   component: Login
-  // },
+  {
+   path: "/login",
+    name: "login",
+   component: Login
+  },
   {
     path: "/poi-list",
     name: "poi-list",
