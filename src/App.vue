@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <login v-if="!UserIsLogged"></login>
+    <login v-if="!true"></login>
     <div v-else>
       <Header></Header>
       <Sidebar></Sidebar>
@@ -15,6 +15,7 @@
 import Login from "./views/Login.vue";
 import Header from "./components/molecules/Header.vue";
 import Sidebar from "./components/organisms/Sidebar.vue";
+import {mapGetters} from "vuex";
 
 export default {
   
@@ -24,6 +25,9 @@ export default {
     Sidebar
   },
   computed: {
+    ...mapGetters([
+      "isLoggedIn"
+    ]),
     UserIsLogged() {
       return true;
       // return this.$store.state.currentUser.authenticated;

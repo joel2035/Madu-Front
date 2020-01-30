@@ -32,6 +32,11 @@ export default {
           name: "POI",
           link: "poi-list",
           icon: "el-icon-shopping-bag-1"
+        },
+        {
+          name: "GreenScore",
+          link: "GreenScore",
+          icon: "el-icon-shopping-bag-1"
         }
       ]
     };
