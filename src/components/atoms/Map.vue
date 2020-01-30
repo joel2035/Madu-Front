@@ -26,7 +26,13 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-#map
+<style lang="scss" scoped>
+#map{
   height: 600px;
+}
+  
+
+  
+
+  
 </style>
