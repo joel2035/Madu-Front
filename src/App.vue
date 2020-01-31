@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <login v-if="!UserIsLogged"></login>
+    <login v-if="!true"></login>
     <div v-else>
       <Header></Header>
       <Sidebar></Sidebar>
@@ -15,15 +15,18 @@
 import Login from "./views/Login.vue";
 import Header from "./components/molecules/Header.vue";
 import Sidebar from "./components/organisms/Sidebar.vue";
+import { mapGetters } from "vuex";
 
 export default {
-  
   components: {
     Login,
     Header,
     Sidebar
   },
   computed: {
+    ...mapGetters([
+      "isLoggedIn"
+    ]),
     UserIsLogged() {
       return true;
       // return this.$store.state.currentUser.authenticated;
@@ -35,12 +38,12 @@ export default {
 <style lang="scss">
 body {
   margin: 0;
-}
-#app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+}
+#app {
 }
 
 #nav {
@@ -57,6 +60,12 @@ body {
 }
 
 .main {
-  margin-left: 200px;
+  position: absolute;
+  z-index: 1;
+  top: 81px;
+  left: 200px;
+  right: 0;
+  // margin-left: 200px;
+  // margin-top: 81px;
 }
 </style>

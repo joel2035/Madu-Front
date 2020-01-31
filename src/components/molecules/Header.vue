@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="logo">
-      <img src="" alt="MADU logo" />
+      <img src="../../static/img/Logo.png" alt="MADU logo" />
     </div>
     <div class="interactions">
       <el-input class="search-input" v-model="searchFilter"></el-input>
@@ -26,15 +26,28 @@ export default {
 
 <style lang="scss">
 .header {
+  position: fixed;
+  z-index: 2;
+  background-color: white;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
-  padding: 20px 0;
+  height: 80px;
+  padding: 0;
   border-bottom: 1px solid #ccc;
   .logo {
-    width: 20%;
+    width: 200px;
+    height: 80px;
+    img {
+      height: 80px;
+      width: 200px;
+    }
   }
   .interactions {
-    width: 80%;
+    padding: 20px 0;
+    width: calc(100vw - 200px);
     display: flex;
     justify-content: space-around;
     align-items: center;

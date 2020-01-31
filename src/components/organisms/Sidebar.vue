@@ -29,7 +29,7 @@ export default {
           icon: "el-icon-house"
         },
         {
-          name: "Entreprises",
+          name: "Clients",
           link: "company-list",
           icon: "el-icon-shopping-bag-2"
         },
@@ -57,6 +57,7 @@ export default {
 <style lang="scss">
 .sidebar {
   position: fixed;
+  z-index: 2;
   width: 200px;
   left: 0;
   top: 81px;
