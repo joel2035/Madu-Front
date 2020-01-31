@@ -2,7 +2,7 @@
     <div class="container">
         <div class="button-container">
             <el-row>
-                <el-button class="btn" type="success">Ajouter</el-button>
+                <el-button class="btn" type="primary">Ajouter</el-button>
             </el-row>
         </div>
         <template>
