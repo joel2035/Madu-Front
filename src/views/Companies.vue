@@ -18,10 +18,7 @@
         prop="accounts"
         label="Nombre d'inscrits"
       ></el-table-column>
-      <el-table-column
-        prop="address"
-        label="Adresse"
-      ></el-table-column>
+      <el-table-column prop="address" label="Adresse"></el-table-column>
       <el-table-column label="Opération" fixed="right" width="250">
         <template slot-scope="scope">
           <div class="buttons">
@@ -36,7 +33,8 @@
               type="primary"
               size="mini"
               @click="editClient(scope.row)"
-            >Voir la fiche</el-button>
+              >Voir la fiche</el-button
+            >
             <el-button
               class="delete-button"
               icon="el-icon-delete"
@@ -122,34 +120,38 @@ export default {
   }
   .el-table {
     font-size: 15px;
-    color: #77848F;
-      background-color: transparent;
-      &::before, .el-table__fixed-right::before, .el-table__fixed::before {
-        display: none;
-      }
-    th, tr {
+    color: #77848f;
+    background-color: transparent;
+    &::before,
+    .el-table__fixed-right::before,
+    .el-table__fixed::before {
+      display: none;
+    }
+    th,
+    tr {
       background-color: transparent;
       border: none !important;
     }
     td {
       border: none !important;
     }
-    .header-cell{
+    .header-cell {
       text-transform: uppercase;
-      color: #B4BAC6;
+      color: #b4bac6;
     }
     .company-name {
       font-family: "Lato Bold";
     }
-    .map-button, .delete-button {
-        border-color: #C0C5D2;
-        color: #C0C5D2;
-        background-color: transparent;
+    .map-button,
+    .delete-button {
+      border-color: #c0c5d2;
+      color: #c0c5d2;
+      background-color: transparent;
     }
     .edit-button {
-        background-color: transparent;
-        color: #0077FF;
-        border-color: #0077FF;
+      background-color: transparent;
+      color: #0077ff;
+      border-color: #0077ff;
     }
   }
 }

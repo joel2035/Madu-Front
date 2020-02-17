@@ -36,10 +36,12 @@ export default {
           icon: "el-icon-shopping-bag-1"
         },
         {
+          name: "GreenScore",
           link: "GreenScore",
           icon: "el-icon-shopping-bag-1"
         },
         {
+          name: "Edit",
           link: "Edit",
           icon: "el-icon-shopping-bag-1"
         }
