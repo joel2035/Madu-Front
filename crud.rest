@@ -53,7 +53,6 @@ Authorization: {{token}}
 
 GET http://{{host}}:{{port}}/structures/
 Authorization: {{token}}
-
 ### COMPANIES ADD
 
 POST http://{{host}}:{{port}}/structures/add
