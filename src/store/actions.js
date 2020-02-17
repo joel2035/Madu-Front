@@ -4,7 +4,11 @@ export default {
   login({ commit }, user) {
     return new Promise((resolve, reject) => {
       commit("auth_request");
-      axios({ url: "http://localhost:8080/login", data: user, method: "POST" })
+      axios({
+        url: `${window.config.api_root_url}login/`,
+        data: user,
+        method: "POST"
+      })
         .then(resp => {
           const token = resp.data.token;
           const user = resp.data.user;
@@ -13,6 +17,12 @@ export default {
           commit("auth_success", token, user);
           resolve(resp);
         })
+        .catch(err => {
+          commit("auth_error");
+          localStorage.removeItem("token");
+          reject(err);
+        })
+
         .catch(err => {
           commit("auth_error");
           localStorage.removeItem("token");

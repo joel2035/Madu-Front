@@ -2,7 +2,7 @@
   <div class="container">
     <div class="button-container">
       <el-row justify="end" style="margin-bottom: 2rem">
-        <el-button class="btn" type="primary">Ajouter un commerçant</el-button>
+        <el-button class="btn" type="primary" @click="addShop()">Ajouter un commerçant</el-button>
       </el-row>
     </div>
     <template>
@@ -24,8 +24,7 @@
               style="margin-right: 10px"
               v-for="(tag, index) in scope.row.tags"
               :key="index"
-              >#{{ tag }}</span
-            >
+            >#{{ tag }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Greenscore" width="150">
@@ -43,24 +42,18 @@
         </el-table-column>
         <el-table-column label="Opérations">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="primary"
-              @click="handleEdit(scope.$index, scope.row)"
-            >
+            <el-button size="mini" type="primary" @click="handleEdit(scope.row)">
               <i class="el-icon-edit"></i>
             </el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-            >
+            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
               <i class="el-icon-delete"></i>
             </el-button>
           </template>
         </el-table-column>
       </el-table>
     </template>
+    <poi-modal ref="editPoiModal" :shop="selectedShop" isEdit />
+    <poi-modal ref="addPoiModal" />
   </div>
 </template>
 
@@ -72,8 +65,12 @@
 </style>
 
 <script>
+import poiModal from "../molecules/poiModal";
 //import axios from "axios";
 export default {
+  components: {
+    poiModal
+  },
   data() {
     return {
       columns: [
@@ -142,7 +139,8 @@ export default {
           tags: ["Vegan", "GlutenFree"],
           greenscore: "19"
         }
-      ]
+      ],
+      selectedShop: null
     };
   },
 
@@ -155,11 +153,15 @@ export default {
     //   );
   },
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row); // eslint-disable-line
+    handleEdit(shop) {
+      this.selectedShop = shop;
+      this.$refs.editPoiModal.open();
     },
     handleDelete(index, row) {
       console.log(index, row); // eslint-disable-line
+    },
+    addShop() {
+      this.$refs.addPoiModal.open();
     }
   }
 };

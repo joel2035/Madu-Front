@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <login v-if="!true"></login>
+    <login v-if="UserIsLogged"></login>
     <div v-else>
       <Header></Header>
       <Sidebar></Sidebar>
@@ -28,8 +28,7 @@ export default {
       "isLoggedIn"
     ]),
     UserIsLogged() {
-      return true;
-      // return this.$store.state.currentUser.authenticated;
+      return this.$store.state.currentUser.authenticated;
     }
   }
 };

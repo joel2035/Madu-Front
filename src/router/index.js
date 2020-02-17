@@ -6,6 +6,7 @@ import EditPoi from "../views/EditPointOfInterest.vue";
 import Companies from "../views/Companies.vue";
 import Company from "../views/Company.vue";
 import Edit from "../views/Edit.vue";
+import Greenscore from "../views/Greenscore.vue";
 
 Vue.use(VueRouter);
 
@@ -22,8 +23,13 @@ const routes = [
     component: Edit
   },
   {
-    path: "/Greenscore",
-    name: "Greenscore",
+    path: "/greenscore",
+    name: "greenscore",
+    component: Greenscore
+  },
+  {
+    path: "/shops",
+    name: "shops",
     component: PointsOfInterest
   },
   {
