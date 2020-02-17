@@ -5,6 +5,8 @@ import PointsOfInterest from "../views/PointsOfInterest.vue";
 import EditPoi from "../views/EditPointOfInterest.vue";
 import Companies from "../views/Companies.vue";
 import Company from "../views/Company.vue";
+import GreenScore from "../views/GreenScore.vue";
+import Edit from "../views/Edit.vue";
 
 Vue.use(VueRouter);
 
@@ -13,6 +15,16 @@ const routes = [
     path: "/",
     name: "home",
     component: Home
+  },
+  {
+    path: "/GreenScore",
+    name: "GreenScore",
+    component: GreenScore
+  },
+  {
+    path: "/Edit",
+    name: "Edit",
+    component: Edit
   },
   {
     path: "/poi-list",

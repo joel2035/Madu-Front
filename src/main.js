@@ -2,9 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import Axios from 'axios';
-
-
+import Axios from "axios";
 
 import ElementUI from "element-ui";
 import locale from "element-ui/lib/locale/lang/fr";
@@ -19,14 +17,19 @@ Vue.use(ElementUI, {
   locale: locale
 });
 Vue.prototype.$http = Axios;
-const token = localStorage.getItem('token')
+const token = localStorage.getItem("token");
 if (token) {
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = token
-};
+  Vue.prototype.$http.defaults.headers.common["Authorization"] = token;
+}
 Vue.config.productionTip = false;
 
-new Vue({
+let app = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount("#app");
+
+window.app = app;
+
+// TODO insérer l'adresse de l'api ici
+window.config.api_root_url = ""

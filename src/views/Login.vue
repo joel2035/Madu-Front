@@ -44,9 +44,9 @@ export default {
   mounted: function() {},
 
   methods: {
-    login: function() {
+    Login() {
       const { email, password } = this;
-      this.$store
+      this.$store 
         .dispatch("login", { email, password })
         .then(() => this.$router.push("/"))
         .catch(err => console.log(err)); // eslint-disable-line

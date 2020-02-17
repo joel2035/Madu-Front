@@ -36,9 +36,17 @@ export default {
 </script>
 
 <style lang="scss">
+@font-face {
+  font-family: "Lato Regular";
+  src: url("./static/font/Lato/Lato-Regular.ttf");
+}
+@font-face {
+  font-family: "Lato Bold";
+  src: url("./static/font/Lato/Lato-Bold.ttf");
+}
 body {
   margin: 0;
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Lato Regular", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -62,9 +70,11 @@ body {
 .main {
   position: absolute;
   z-index: 1;
-  top: 81px;
-  left: 200px;
+  top: 80px;
+  left: 75px;
   right: 0;
+  background-color: #FAFBFC;
+  min-height: calc(100vh - 80px);
   // margin-left: 200px;
   // margin-top: 81px;
 }
