@@ -5,11 +5,17 @@
       :key="idx"
       :prop="column.prop"
       :label="column.label"
+      :width="column.width"
       sortable
     ></el-table-column>
     <el-table-column>
       <template slot-scope="scope">
-        <el-button size="mini" @click="goDetail(scope.row)">Détails</el-button>
+        <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">
+          <i class="el-icon-edit"></i>
+        </el-button>
+        <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
+          <i class="el-icon-delete"></i>
+        </el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -23,74 +29,45 @@ export default {
       columns: [
         {
           prop: "name",
-          label: "Nom"
-        },
-        {
-          prop: "address",
-          label: "Adresse"
-        },
-        {
-          prop: "zipcode",
-          label: "Code Postal"
-        },
-        {
-          prop: "openingHours",
-          label: "Horaires"
+          label: "Nom",
+          width: 180
         },
         {
           prop: "category",
-          label: "Catégorie"
-        },
-        {
-          prop: "type",
           label: "Type"
         },
         {
-          prop: "price",
-          label: "Prix"
+          prop: "tag",
+          label: "Tags"
         },
-        {
-          prop: "restrictions",
-          label: "Vege/Vegan"
-        },
-        {
-          prop: "glutenfree",
-          label: "Gluten free"
-        },
-        {
-          prop: "organic",
-          label: "Bio"
-        },
-        {
-          prop: "accessibility",
-          label: "Accessibilité"
-        },
+
         {
           prop: "greenscore",
           label: "Greenscore"
+        },
+        {
+          prop: "address",
+          label: "Localisation",
+          width: 200
         }
       ],
       dataTable: [
         {
           id: 1,
           name: "GIVEN",
-          address: "89 rue de Bagnolet",
-          zipcode: "75020",
-          openingHours: "midi du mardi au vendredi, samedi 19-23h30",
+          address: "89 rue de Bagnolet, 75020",
           category: "Resto",
-          type: "Healthy",
           price: "14,5€ menu",
           restrictions: "VEGAN FRIENDLY (VG)",
           glutenfree: "Option",
           organic: "En partie",
           accessibility: "",
-          greenscore: ""
+          greenscore: "37"
         },
         {
           id: 2,
           name: "ABATTOIR VEGETAL",
-          address: "61 rue Ramey",
-          zipcode: "75018",
+          address: "61 rue Ramey, 75018",
           openingHours: "horaires divers",
           category: "Resto",
           type: "",
@@ -99,14 +76,12 @@ export default {
           glutenfree: "",
           organic: "Full",
           accessibility: "",
-          greenscore: ""
+          greenscore: "89"
         },
         {
           id: 3,
           name: "LE MEZZE DU CHEF",
-          address: "80 rue de Ménilmontant",
-          zipcode: "75020",
-          openingHours: "9h-minuit",
+          address: "80 rue de Ménilmontant, 75020",
           category: "Resto",
           type: "Oriental",
           price: "10€ assiette mezze",
@@ -114,7 +89,7 @@ export default {
           glutenfree: "OPTION",
           organic: "",
           accessibility: "",
-          greenscore: ""
+          greenscore: "90"
         }
       ]
     };
@@ -130,8 +105,11 @@ export default {
       );
   },
   methods: {
-    goDetail(row) {
-      this.$router.push({ path: `/poi/${row.id}` });
+    handleEdit(index, row) {
+      console.log(index, row); // eslint-disable-line
+    },
+    handleDelete(index, row) {
+      console.log(index, row); // eslint-disable-line
     }
   }
 };
