@@ -32,17 +32,13 @@ export default {
           icon: "el-icon-shopping-bag-2"
         },
         {
-          link: "poi-list",
+          name: "greenscore",
+          link: "greenscore",
           icon: "el-icon-shopping-bag-1"
         },
         {
-          name: "GreenScore",
-          link: "GreenScore",
-          icon: "el-icon-shopping-bag-1"
-        },
-        {
-          name: "Edit",
-          link: "Edit",
+          name: "shops",
+          link: "shops",
           icon: "el-icon-shopping-bag-1"
         }
       ]
@@ -70,7 +66,7 @@ export default {
   top: 0;
   bottom: 0;
   background-color: white;
-  border-right: 1px solid #EBEDF8;
+  border-right: 1px solid #ebedf8;
   display: flex;
   align-items: center;
   justify-content: space-between;
