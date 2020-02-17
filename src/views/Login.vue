@@ -7,7 +7,7 @@
         name="username"
         id="username"
         placeholder="email"
-        v-model="email"
+        v-model="mail_pro"
       />
       <input
         type="password"
@@ -34,7 +34,7 @@ export default {
 
   data: function() {
     return {
-      email: "",
+   mail_pro: "",
       password: ""
     };
   },
@@ -45,9 +45,9 @@ export default {
 
   methods: {
     login() {
-      const { email, password } = this;
+      const { mail_pro, password } = this;
       this.$store
-        .dispatch("login", { email, password })
+        .dispatch("login", { mail_pro, password })
         .then(() => this.$router.push("/"))
         .catch(err => console.log(err)); // eslint-disable-line
     }
