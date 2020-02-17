@@ -16,7 +16,7 @@
         placeholder="password"
         v-model="password"
       />
-      <button type="submit" class="btn-submit">Connexion</button>
+      <button type="submit" class="btn-submit" @click="login">Connexion</button>
       <p class="message">
         Not registered?
         <a href="#">Create an account</a>
@@ -34,7 +34,7 @@ export default {
 
   data: function() {
     return {
-   mail_pro: "",
+      mail_pro: "",
       password: ""
     };
   },
