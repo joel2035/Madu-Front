@@ -90,7 +90,7 @@
 
 <script>
 import poiModal from "../molecules/poiModal";
-//import axios from "axios";
+import axios from "axios";
 export default {
   components: {
     poiModal
@@ -176,12 +176,10 @@ export default {
     };
   },
   mounted() {
-    // axios
-    //   //.get(`${window.config.api_root_url}/shops`)
-    //   .then(response =>
-    //     // eslint-disable-next-line no-console
-    //     console.log(response.data)
-    //   );
+    axios.get(`${window.config.api_root_url}/shops`).then(response =>
+      // eslint-disable-next-line no-console
+      console.log(response.data)
+    );
   },
   methods: {
     handleEdit(shop) {
