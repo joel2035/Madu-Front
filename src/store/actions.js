@@ -4,7 +4,7 @@ export default {
     login({ commit }, user) {
         return new Promise((resolve, reject) => {
             commit('auth_request')
-            axios({ url: 'http://{{host}}:{{port}}/login/', data: user, method: 'POST' })
+            axios({ url: `${window.config.api_root_url}login/`, data: user, method: 'POST' })
                 .then(resp => {
                     const token = resp.data.token
                     const user = resp.data.user

@@ -1,6 +1,7 @@
 <template>
   <div class="content">
 
+
     <el-form
       :label-position="labelPosition"
       label-width="100px"
@@ -79,5 +80,4 @@ export default {
     width: 400px;
   }
 }
-
 </style>
