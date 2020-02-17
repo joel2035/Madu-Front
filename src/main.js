@@ -32,4 +32,6 @@ let app = new Vue({
 window.app = app;
 
 // TODO insérer l'adresse de l'api ici
-window.config.api_root_url = ""
+window.config = {
+  api_root_url: "http://15.236.55.50:3000/"
+};

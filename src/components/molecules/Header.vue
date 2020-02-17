@@ -11,6 +11,11 @@
 export default {
   data: function() {
     return {};
+  },
+  method: {
+    logout() {
+      console.debug('log out'); // eslint-disable-line
+    }
   }
 };
 </script>

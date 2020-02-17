@@ -57,7 +57,9 @@
 <script>
 import ArchiveModal from "../components/organisms/archiveModal.vue";
 import EditClientModal from "../components/organisms/editClientModal.vue";
+import { OpenStreetMapProvider } from "leaflet-geosearch";
 
+// search
 export default {
   components: {
     ArchiveModal,
@@ -90,6 +92,17 @@ export default {
       console.debug("open edit modal"); // eslint-disable-line
     },
     openMapModal() {
+      const provider = new OpenStreetMapProvider();
+      // const results = await provider.search({ query: this.fakeData.address });
+      const results = provider
+        .search({ query: this.fakeData.address })
+        .then(data => {
+          console.debug(data); // eslint-disable-line
+        })
+        .catch(err => {
+          console.debug(err); // eslint-disable-line
+        });
+      console.debug(results); // eslint-disable-line
       console.debug("open map modal"); // eslint-disable-line
     },
     openArchiveModal(client) {
