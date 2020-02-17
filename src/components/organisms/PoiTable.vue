@@ -40,6 +40,22 @@
             </span>
           </template>
         </el-table-column>
+        <el-table-column label="Prix">
+          <template slot-scope="scope">
+            <i
+              class="el-icon-coin"
+              v-for="(_, index) in 3"
+              :key="index"
+              :class="index < scope.row.price ? 'activePrice' : 'inactivePrice'"
+              style="font-size: 1.5rem"
+            ></i>
+          </template>
+        </el-table-column>
+        <el-table-column label="Accessibilité">
+          <template slot-scope="scope">
+            <span>{{ scope.row.accessibility ? "Oui" : "Non" }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="Opérations">
           <template slot-scope="scope">
             <el-button size="mini" type="primary" @click="handleEdit(scope.row)">
@@ -61,6 +77,14 @@
 .button-container {
   display: flex;
   justify-content: flex-end;
+}
+
+.activePrice {
+  color: rgba(192, 197, 210, 1);
+}
+
+.inactivePrice {
+  color: rgba(192, 197, 210, 0.3);
 }
 </style>
 
@@ -105,9 +129,11 @@ export default {
           address: "89 rue de Bagnolet",
           zipcode: "75020",
           city: "Paris",
-          description: "Resto",
+          type: "Restaurant",
           tags: ["Vegan", "GlutenFree"],
-          greenscore: "37"
+          greenscore: "37",
+          price: 2,
+          accessibility: true
         },
         {
           id: 2,
@@ -115,9 +141,11 @@ export default {
           address: "61 rue Ramey",
           zipcode: "75018",
           city: "Paris",
-          description: "Resto",
+          type: "Restaurant",
           tags: ["Vegan", "GlutenFree"],
-          greenscore: "89"
+          greenscore: "89",
+          price: 1,
+          accessibility: true
         },
         {
           id: 3,
@@ -125,9 +153,11 @@ export default {
           address: "61 rue Ramey",
           zipcode: "75018",
           city: "Paris",
-          description: "Resto",
+          type: "Restaurant",
           tags: ["Vegan", "GlutenFree"],
-          greenscore: "89"
+          greenscore: "89",
+          price: 3,
+          accessibility: false
         },
         {
           id: 4,
@@ -135,15 +165,16 @@ export default {
           address: "61 rue Ramey",
           zipcode: "75018",
           city: "Paris",
-          description: "Resto",
+          type: "Boutique",
           tags: ["Vegan", "GlutenFree"],
-          greenscore: "19"
+          greenscore: "19",
+          price: 2,
+          accessibility: true
         }
       ],
       selectedShop: null
     };
   },
-
   mounted() {
     // axios
     //   //.get(`${window.config.api_root_url}/shops`)
@@ -155,6 +186,7 @@ export default {
   methods: {
     handleEdit(shop) {
       this.selectedShop = shop;
+      // eslint-disable-next-line no-console
       this.$refs.editPoiModal.open();
     },
     handleDelete(index, row) {
