@@ -24,7 +24,8 @@
               style="margin-right: 10px"
               v-for="(tag, index) in scope.row.tags"
               :key="index"
-            >#{{ tag }}</span>
+              >#{{ tag }}</span
+            >
           </template>
         </el-table-column>
         <el-table-column label="Greenscore" width="150">
@@ -42,10 +43,18 @@
         </el-table-column>
         <el-table-column label="Opérations">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">
+            <el-button
+              size="mini"
+              type="primary"
+              @click="handleEdit(scope.$index, scope.row)"
+            >
               <i class="el-icon-edit"></i>
             </el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+            >
               <i class="el-icon-delete"></i>
             </el-button>
           </template>
@@ -63,7 +72,7 @@
 </style>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
 export default {
   data() {
     return {
@@ -138,13 +147,12 @@ export default {
   },
 
   mounted() {
-    axios
-      .get("/poi-api-test.js")
-
-      .then(response =>
-        // eslint-disable-next-line no-console
-        console.log(response.data)
-      );
+    // axios
+    //   //.get(`${window.config.api_root_url}/shops`)
+    //   .then(response =>
+    //     // eslint-disable-next-line no-console
+    //     console.log(response.data)
+    //   );
   },
   methods: {
     handleEdit(index, row) {

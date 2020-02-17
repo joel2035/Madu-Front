@@ -1,6 +1,10 @@
 <template>
   <div class="content">
-    <el-form :label-position="labelPosition" label-width="100px" :model="formLabelAlign">
+    <el-form
+      :label-position="labelPosition"
+      label-width="100px"
+      :model="formLabelAlign"
+    >
       <el-form-item label="Categorie">
         <el-select
           class="select"
