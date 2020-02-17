@@ -24,12 +24,14 @@ export default {
     return {
       sidebarEntries: [
         {
-          name: "Home",
           link: "home",
           icon: "el-icon-house"
         },
         {
-          name: "POI",
+          link: "company-list",
+          icon: "el-icon-shopping-bag-2"
+        },
+        {
           link: "poi-list",
           icon: "el-icon-shopping-bag-1"
         },
@@ -62,11 +64,18 @@ export default {
 <style lang="scss">
 .sidebar {
   position: fixed;
-  width: 200px;
+  z-index: 2;
+  width: 75px;
   left: 0;
-  top: 81px;
+  top: 0;
   bottom: 0;
-  background-color: #0b4f6c;
+  background-color: white;
+  border-right: 1px solid #EBEDF8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20% 0;
+  flex-direction: column;
   .version {
     position: absolute;
     bottom: 15px;
