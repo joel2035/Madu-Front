@@ -51,6 +51,7 @@ body {
   color: #2c3e50;
 }
 #app {
+  min-height: 100vh;
 }
 
 #nav {
