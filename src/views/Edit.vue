@@ -1,6 +1,5 @@
 <template>
   <div class="content">
-<<<<<<< HEAD
     <el-form
       :label-position="labelPosition"
       label-width="100px"
@@ -68,7 +67,7 @@ export default {
 </script>
 
 <style lang="scss">
-<<<<<<< HEAD
+
 .content {
   width: 500px;
   height: 300px;
@@ -79,16 +78,5 @@ export default {
     width: 400px;
   }
 }
-=======
-    .content{
-       width: 500px;
-       height: 300px;
-       position:absolute;
-       top: 30%;
-       left:35%;
-       .select{
-           width:400px;
-       }
-    }
->>>>>>> upstream/master
+
 </style>
