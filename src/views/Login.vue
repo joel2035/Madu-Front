@@ -1,30 +1,20 @@
 <template>
   <div class="view-container">
     <div class="login">
-      <form class="form">
+      <div class="form-container">
         <h1>Connectez-vous</h1>
-        <div class="email">
-          <p class="label">Identifiant</p>
-          <input
-            type="email"
-            name="username"
-            id="username"
-            placeholder="Identifiant"
-            v-model="mail_pro"
-          />
-        </div>
-        <div class="password">
-          <p class="label">Mot de passe</p>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Mot de passe"
-            v-model="password"
-          />
-        </div>
-        <button type="submit" class="btn-submit" @click="login()">Se connecter</button>
-      </form>
+        <el-form class="form" label-position="top" @submit="login">
+          <el-form-item label="Identifiant">
+            <el-input v-model="mail_pro" placeholder="Identifiant"></el-input>
+          </el-form-item>
+          <el-form-item label="Mot de passe">
+            <el-input v-model="password" placeholder="Mot de passe"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <button type="submit" @click="login" class="btn-submit">Se connecter</button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -45,15 +35,16 @@ export default {
 
   computed: {},
 
-  mounted: function() {},
+  mounted: function() {
+  },
 
   methods: {
-    login() {
+    login(event) {
+      event.preventDefault();
       console.debug('la');// eslint-disable-line
-      const { mail_pro, password } = this;
       this.$store
-        .dispatch("login", { mail_pro, password })
-        .then(() => this.$router.push("/"))
+        .dispatch("login", { mail_pro: this.mail_pro, password: this.password })
+        .then(() => this.$router.push({"name": "home"}))
         .catch(err => console.log(err)); // eslint-disable-line
     }
   }
@@ -70,21 +61,22 @@ export default {
   justify-content: center;
   .login {
     margin: auto;
-    padding: 80px 0;
     width: 680px;
     text-align: center;
+    .form-container {
+      width: 100%;
+      background: #ffffff;
+      padding-top: 45px;
+    }
     .form {
       position: relative;
       z-index: 1;
-      background: #ffffff;
-      margin: 0 auto 100px;
       padding: 45px;
-      text-align: center;
-      // box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+      text-align: left;
+      margin: auto;
+      width: 305px;
       .email,.password {
-        width: 305px;
         margin: 0 auto;
-        text-align: left;
         .label {
           text-transform: uppercase;
           font-size: 14px;
@@ -102,14 +94,17 @@ export default {
         border: 1px solid #C0C5D2;
         padding: 13px 15px;
         font-size: 17px;
+        border-radius: 4px;
       }
       button {
+        border-radius: 4px;
         font-family: "Roboto", sans-serif;
         text-transform: uppercase;
         outline: 0;
-        background: #4caf50;
-        width: 100%;
+        background: #0077FF;
+        width: 200px;
         border: 0;
+        margin-top: 60px;
         padding: 15px;
         color: #ffffff;
         font-size: 14px;
@@ -119,7 +114,7 @@ export default {
       }
       button:hover,
       button:focus {
-        background: #43a047;
+        background: #076EE4;
       }
       p {
         margin: 15px 0 0;
