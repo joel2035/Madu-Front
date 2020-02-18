@@ -57,49 +57,77 @@
         </el-col>
       </el-row>
 
-      <el-form-item>
-        <el-row :gutter="20" style="margin: 2rem 0">
-          <el-col :span="6">
-            <div class="greenscore-icon">
-              <div class="greenscore-picto">
-                <i class="el-icon-fork-spoon" style="font-size: 2rem"></i>
-              </div>
-              <div class="greenscore-value">
-                <div class="greenscore-icon-label">FOOD</div>
-                <div class="greenscore-icon-label">0%</div>
-              </div>
+      <el-row :gutter="20" style="margin: 2rem 0">
+        <el-col :span="6">
+          <div class="greenscore-icon">
+            <div class="greenscore-picto">
+              <i class="el-icon-fork-spoon" style="font-size: 2rem"></i>
             </div>
-          </el-col>
-          <el-col :span="6">
-            <div class="greenscore-icon">
-              <div class="greenscore-picto">
-                <i class="el-icon-user" style="font-size: 2rem"></i>
-              </div>
-              <div class="greenscore-value">
-                <div class="greenscore-icon-label">MATERIEL</div>
-                <div class="greenscore-icon-label">0%</div>
-              </div>
+            <div class="greenscore-value">
+              <div class="greenscore-icon-label">FOOD</div>
+              <div class="greenscore-icon-label">0%</div>
             </div>
-          </el-col>
-          <el-col :span="6">
-            <div class="greenscore-icon">
-              <div class="greenscore-picto">
-                <i class="el-icon-box" style="font-size: 2rem"></i>
-              </div>
-              <div class="greenscore-value">
-                <div class="greenscore-icon-label">SOCIAL</div>
-                <div class="greenscore-icon-label">0%</div>
-              </div>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="greenscore-icon">
+            <div class="greenscore-picto">
+              <i class="el-icon-user" style="font-size: 2rem"></i>
             </div>
-          </el-col>
-          <el-col :span="6">
-            <el-button type="primary" @click="innerVisible = true">Modifier</el-button>
-          </el-col>
-        </el-row>
+            <div class="greenscore-value">
+              <div class="greenscore-icon-label">MATERIEL</div>
+              <div class="greenscore-icon-label">0%</div>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <div class="greenscore-icon">
+            <div class="greenscore-picto">
+              <i class="el-icon-box" style="font-size: 2rem"></i>
+            </div>
+            <div class="greenscore-value">
+              <div class="greenscore-icon-label">SOCIAL</div>
+              <div class="greenscore-icon-label">0%</div>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="6">
+          <el-button type="primary" @click="innerVisible = true">Modifier</el-button>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="Prix" class="label-style">
+            <i
+              class="el-icon-coin"
+              v-for="(_, index) in 3"
+              :key="index"
+              style="font-size: 1.5rem"
+              @click="onClickIcon"
+              :class="index <= formData.price ? 'activePrice' : 'inactivePrice'"
+            ></i>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="24">
+          <el-form-item label="Description" class="label-style">
+            <el-input
+              type="textarea"
+              v-model="formData.description"
+              maxlength="100"
+              show-word-limit
+            ></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
         <el-button type="primary" @click="successCallback">Enregistrer</el-button>
         <el-button @click="showModal = false">Annuler</el-button>
-      </el-form-item>
+      </el-row>
     </el-form>
+
+    <!-- GREENSCORE MODAL -->
     <el-dialog
       width="50%"
       title="Modification du GREENSCORE"
@@ -110,8 +138,12 @@
 
       <el-form v-model="greenscoreData">
         <h3>FOOD</h3>
-        <el-form-item :label="item.label" v-for="(item, index) in greenscoreData.food" :key="index">
-          <el-input-number v-model="item.value" @change="handleChange" :min="50" :max="100"></el-input-number>
+        <el-form-item
+          :label="item.label"
+          v-for="(item, index) in greenscoreData.food"
+          :key="index * 10"
+        >
+          <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
         </el-form-item>
         <h3>MATERIEL</h3>
         <el-form-item
@@ -119,7 +151,7 @@
           v-for="(item, index) in greenscoreData.resources"
           :key="index"
         >
-          <el-input-number v-model="item.value" @change="handleChange" :min="50" :max="100"></el-input-number>
+          <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
         </el-form-item>
         <h3>SOCIAL</h3>
         <el-form-item
@@ -127,7 +159,7 @@
           v-for="(item, index) in greenscoreData.social"
           :key="index"
         >
-          <el-input-number v-model="item.value" @change="handleChange" :min="50" :max="100"></el-input-number>
+          <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
         </el-form-item>
         <el-button @click="innerVisible = false">Annuler</el-button>
         <el-button type="primary" @click="submitGreenscore">Enregistrer</el-button>
@@ -160,7 +192,9 @@ export default {
         zipcode: "",
         city: "",
         tags: "",
-        accessibility: ""
+        accessibility: "",
+        price: "",
+        description: ""
       },
       greenscoreData: {
         food: [
@@ -218,6 +252,17 @@ export default {
     edit() {
       this.formData.tags = this.formData.tags.split(", ");
       this.$emit("edited");
+    },
+
+    onClickIcon() {
+      // eslint-disable-next-line no-console
+      console.log(this.formData.price);
+      this.formData.price += 1;
+    },
+
+    submitGreenscore() {
+      // eslint-disable-next-line no-console
+      console.log("submit");
     }
   }
 };
@@ -251,5 +296,12 @@ export default {
 .greenscore-value {
   display: flex;
   flex-direction: column;
+}
+.activePrice {
+  color: rgba(192, 197, 210, 1);
+}
+
+.inactivePrice {
+  color: rgba(192, 197, 210, 0.3);
 }
 </style>
