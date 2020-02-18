@@ -69,7 +69,7 @@
       </el-table>
     </template>
     <poi-modal ref="editPoiModal" :shop="selectedShop" isEdit />
-    <poi-modal ref="addPoiModal" />
+    <poi-modal ref="addPoiModal"/>
   </div>
 </template>
 
