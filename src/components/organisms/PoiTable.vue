@@ -58,7 +58,7 @@
         </el-table-column>
         <el-table-column label="Opérations">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleEdit(scope.row)">
+            <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">
               <i class="el-icon-edit"></i>
             </el-button>
             <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
@@ -67,9 +67,15 @@
           </template>
         </el-table-column>
       </el-table>
+      <poi-modal
+        ref="editPoiModal"
+        :shop="selectedShop"
+        isEdit
+        v-if="selectedShop !== null"
+        :visible="showModal"
+      />
+      <poi-modal ref="addPoiModal" />
     </template>
-    <poi-modal ref="editPoiModal" :shop="selectedShop" isEdit />
-    <poi-modal ref="addPoiModal" />
   </div>
 </template>
 
@@ -172,7 +178,8 @@ export default {
           accessibility: true
         }
       ],
-      selectedShop: null
+      selectedShop: null,
+      showModal: false
     };
   },
   mounted() {
@@ -181,9 +188,10 @@ export default {
       .then(response => (this.dataTable = response.data));
   },
   methods: {
-    handleEdit(shop) {
+    handleEdit(index, shop) {
       this.selectedShop = shop;
-      // eslint-disable-next-line no-console
+      this.showModal = true;
+
       this.$refs.editPoiModal.open();
     },
     handleDelete(index, row) {

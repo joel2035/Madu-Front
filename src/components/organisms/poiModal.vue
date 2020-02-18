@@ -1,10 +1,11 @@
 <template>
   <el-dialog
     :title="isEdit ? 'Modifier commerçant' : 'Ajouter un commerçant'"
-    :visible.sync="showModal"
+    :visible.sync="visible"
     append-to-body
     width="70%"
-    @close="showModal = false"
+    @close="closeModal"
+    destroy-on-close
   >
     <h2>{{ isEdit ? "Modifier" : "Ajouter" }} un commerçant</h2>
     <el-form :model="formData">
@@ -180,6 +181,9 @@ export default {
     isEdit: {
       type: Boolean,
       default: false
+    },
+    visible: {
+      type: Boolean
     }
   },
 
@@ -228,7 +232,7 @@ export default {
           }
         ]
       },
-      showModal: false,
+      showModal: this.visible,
       innerVisible: false
     };
   },
@@ -236,14 +240,22 @@ export default {
   computed: {},
 
   mounted: function() {
+    this.isEdit ? (this.formData = this.shop) : this.formData;
+    // eslint-disable-next-line no-console
+
     axios.get("http://35.180.73.134/:3000/greenscore").then(response =>
       // eslint-disable-next-line no-console
       console.log(response.data)((this.greenscoreData = response.data))
     );
   },
 
+  updated: function() {
+    this.isEdit ? (this.formData = this.shop) : this.formData;
+  },
+
   methods: {
     open() {
+      // eslint-disable-next-line no-console
       this.showModal = true;
     },
     successCallback() {
@@ -256,13 +268,15 @@ export default {
 
     onClickIcon() {
       // eslint-disable-next-line no-console
-      console.log(this.formData.price);
       this.formData.price += 1;
     },
 
     submitGreenscore() {
       // eslint-disable-next-line no-console
       console.log("submit");
+    },
+    closeModal() {
+      this.visible = false;
     }
   }
 };
