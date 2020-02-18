@@ -29,7 +29,7 @@
         </el-table-column>
         <el-table-column label="Greenscore" width="150">
           <template slot-scope="scope">
-            <span>{{ scope.row.greenscore }}</span>
+            <span>{{ scope.row.greenscore }}%</span>
           </template>
         </el-table-column>
         <el-table-column label="Localisation">
@@ -89,7 +89,7 @@
 </style>
 
 <script>
-import poiModal from "../molecules/poiModal";
+import poiModal from "../organisms/poiModal";
 import axios from "axios";
 export default {
   components: {

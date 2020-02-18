@@ -24,11 +24,10 @@ export default {
     Sidebar
   },
   computed: {
-    ...mapGetters([
-      "isLoggedIn"
-    ]),
+    ...mapGetters(["isLoggedIn"]),
     UserIsLogged() {
-      return this.$store.state.currentUser.authenticated;
+      // return this.$store.state.currentUser.authenticated;
+      return true;
     }
   }
 };
@@ -72,7 +71,7 @@ body {
   top: 80px;
   left: 75px;
   right: 0;
-  background-color: #FAFBFC;
+  background-color: #fafbfc;
   min-height: calc(100vh - 80px);
   // margin-left: 200px;
   // margin-top: 81px;
