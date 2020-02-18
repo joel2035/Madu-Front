@@ -107,6 +107,7 @@ Content-Type: application/json
 {
     "name": "Naturialit",
     "description": "restaurant végétarien",
+    "type": "restaurant",
     "address": "26 rue de montreuil",
     "zipcode": "93100",
     "city": "Montreuil",
@@ -116,7 +117,9 @@ Content-Type: application/json
         "local",
         "traditionnelle"
     ], 
-    "greenscore": "5e43a17ccfcac52e68437e83"
+    "greenscore": "5e43a17ccfcac52e68437e83",
+    "accessibility": true,
+    "price": 2
 }
 
 ###SHOPS UPDATE

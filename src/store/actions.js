@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   login({ commit }, user) {
     return new Promise((resolve, reject) => {
-      console.debug("login");// eslint-disable-line
+      console.debug("login"); // eslint-disable-line
       commit("auth_request");
       axios({
         url: `${window.config.api_root_url}login/`,

@@ -1,7 +1,5 @@
 <template>
   <div class="content">
-
-
     <el-form
       :label-position="labelPosition"
       label-width="100px"
@@ -40,6 +38,7 @@
 
 <script>
 export default {
+  
   components: {},
 
   props: {},
@@ -58,7 +57,9 @@ export default {
 
   computed: {},
 
-  mounted: function() {},
+  mounted: function() {
+     
+  },
 
   methods: {
     nSubmit() {
