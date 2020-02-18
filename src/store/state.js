@@ -3,6 +3,6 @@ export default {
   token: localStorage.getItem('token') || '',
   currentUser: {
     uid: "",
-    authenticated: true
+    authenticated: false
   }
 };

@@ -50,14 +50,17 @@
       modelName="client"
       @successCallback="archiveClient"
     ></archive-modal>
-    <edit-client-modal :client="selectedClient"></edit-client-modal>
+    <map-modal :selectedClient="selectedClient"></map-modal>
+    <edit-client-modal ref="editModal" :client="selectedClient" :clientCoords="clientCoords"></edit-client-modal>
   </div>
 </template>
 
 <script>
 import ArchiveModal from "../components/organisms/archiveModal.vue";
 import EditClientModal from "../components/organisms/editClientModal.vue";
+import openGeocoder from "node-open-geocoder";
 
+// search
 export default {
   components: {
     ArchiveModal,
@@ -68,16 +71,17 @@ export default {
 
   data: function() {
     return {
-      selectedClient: null,
+      selectedClient: {},
       fakeData: [
         {
           name: "HETIC",
-          address: "27 rue du Progrès",
+          address: "14 Boulevard Haussmann, 75009 Paris",
           zipCode: 93100,
           gains: 2,
           accounts: 10
         }
-      ]
+      ],
+      clientCoords: {}
     };
   },
 
@@ -87,9 +91,20 @@ export default {
 
   methods: {
     editClient() {
+      this.$refs.editModal.open();
       console.debug("open edit modal"); // eslint-disable-line
     },
-    openMapModal() {
+    openMapModal(client) {
+      openGeocoder()
+        .geocode(this.fakeData.address)
+        .end((err, res) => {
+          console.debug(res); // eslint-disable-line
+          this.selectedClient = client;
+          this.clientCoords = {
+            lat: res.lat,
+            lon: res.lon
+          };
+        });
       console.debug("open map modal"); // eslint-disable-line
     },
     openArchiveModal(client) {
@@ -121,7 +136,7 @@ export default {
   .el-table {
     font-size: 15px;
     color: #77848f;
-    background-color: transparent;
+    background-color: #fafbfc;
     &::before,
     .el-table__fixed-right::before,
     .el-table__fixed::before {
@@ -129,7 +144,7 @@ export default {
     }
     th,
     tr {
-      background-color: transparent;
+      background-color: #fafbfc;
       border: none !important;
     }
     td {
@@ -146,10 +161,10 @@ export default {
     .delete-button {
       border-color: #c0c5d2;
       color: #c0c5d2;
-      background-color: transparent;
+      background-color: #fafbfc;
     }
     .edit-button {
-      background-color: transparent;
+      background-color: #fafbfc;
       color: #0077ff;
       border-color: #0077ff;
     }

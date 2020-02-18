@@ -54,3 +54,10 @@ yarn test:unit
 ```
 yarn lint
 ```
+
+
+### lib used
+
+Vue
+leaflet
+node-open-geocoder
