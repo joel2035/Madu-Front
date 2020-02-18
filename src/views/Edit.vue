@@ -45,13 +45,13 @@ export default {
 
   data: function() {
     return {
-
       formLabelAlign: {
         categorie: "",
         name: "",
         atape_1: "",
         etape_2: "",
         etape_3: ""
+      }
     };
   },
 
