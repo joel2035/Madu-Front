@@ -176,10 +176,9 @@ export default {
     };
   },
   mounted() {
-    axios.get(`${window.config.api_root_url}/shops`).then(response =>
-      // eslint-disable-next-line no-console
-      console.log(response.data)
-    );
+    axios
+      .get(`${window.config.api_root_url}/shops`)
+      .then(response => (this.dataTable = response.data));
   },
   methods: {
     handleEdit(shop) {

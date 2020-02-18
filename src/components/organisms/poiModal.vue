@@ -56,15 +56,48 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row :gutter="20">
-        <el-form-item>
-          <el-image style="width: 100px; height: 100px" src="/static/img/food.svg"></el-image>
-          <el-button type="primary" @click="innerVisible = true">Modifier</el-button>
-        </el-form-item>
-      </el-row>
+
       <el-form-item>
-        <el-button @click="showModal = false">Annuler</el-button>
+        <el-row :gutter="20" style="margin: 2rem 0">
+          <el-col :span="6">
+            <div class="greenscore-icon">
+              <div class="greenscore-picto">
+                <i class="el-icon-fork-spoon" style="font-size: 2rem"></i>
+              </div>
+              <div class="greenscore-value">
+                <div class="greenscore-icon-label">FOOD</div>
+                <div class="greenscore-icon-label">0%</div>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="greenscore-icon">
+              <div class="greenscore-picto">
+                <i class="el-icon-user" style="font-size: 2rem"></i>
+              </div>
+              <div class="greenscore-value">
+                <div class="greenscore-icon-label">MATERIEL</div>
+                <div class="greenscore-icon-label">0%</div>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="greenscore-icon">
+              <div class="greenscore-picto">
+                <i class="el-icon-box" style="font-size: 2rem"></i>
+              </div>
+              <div class="greenscore-value">
+                <div class="greenscore-icon-label">SOCIAL</div>
+                <div class="greenscore-icon-label">0%</div>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <el-button type="primary" @click="innerVisible = true">Modifier</el-button>
+          </el-col>
+        </el-row>
         <el-button type="primary" @click="successCallback">Enregistrer</el-button>
+        <el-button @click="showModal = false">Annuler</el-button>
       </el-form-item>
     </el-form>
     <el-dialog
@@ -75,10 +108,12 @@
     >
       <h2>Catégories et sous-critères</h2>
 
-      <el-form v-model="greenscoreData.food">
+      <el-form v-model="greenscoreData">
+        <h3>FOOD</h3>
         <el-form-item :label="item.label" v-for="(item, index) in greenscoreData.food" :key="index">
           <el-input-number v-model="item.value" @change="handleChange" :min="50" :max="100"></el-input-number>
         </el-form-item>
+        <h3>MATERIEL</h3>
         <el-form-item
           :label="item.label"
           v-for="(item, index) in greenscoreData.resources"
@@ -86,6 +121,7 @@
         >
           <el-input-number v-model="item.value" @change="handleChange" :min="50" :max="100"></el-input-number>
         </el-form-item>
+        <h3>SOCIAL</h3>
         <el-form-item
           :label="item.label"
           v-for="(item, index) in greenscoreData.social"
@@ -93,12 +129,15 @@
         >
           <el-input-number v-model="item.value" @change="handleChange" :min="50" :max="100"></el-input-number>
         </el-form-item>
+        <el-button @click="innerVisible = false">Annuler</el-button>
+        <el-button type="primary" @click="submitGreenscore">Enregistrer</el-button>
       </el-form>
     </el-dialog>
   </el-dialog>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   components: {},
 
@@ -162,7 +201,12 @@ export default {
 
   computed: {},
 
-  mounted: function() {},
+  mounted: function() {
+    axios.get("http://35.180.73.134/:3000/greenscore").then(response =>
+      // eslint-disable-next-line no-console
+      console.log(response.data)((this.greenscoreData = response.data))
+    );
+  },
 
   methods: {
     open() {
@@ -179,11 +223,33 @@ export default {
 };
 </script>
 
-<style lang="scss" module>
+<style lang="scss" scoped>
 .label-style {
   font-weight: bold;
   label {
     text-transform: uppercase;
   }
+}
+
+.greenscore-icon {
+  width: 100%;
+  display: flex;
+}
+.greenscore-picto {
+  width: 2rem;
+
+  i {
+    font-size: 2rem;
+  }
+}
+
+.greenscore-icon-label {
+  margin-left: 0.5rem;
+  margin-bottom: 0;
+}
+
+.greenscore-value {
+  display: flex;
+  flex-direction: column;
 }
 </style>
