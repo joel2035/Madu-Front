@@ -14,13 +14,6 @@
                 </el-tabs>
         </template>    
             <template>
-                <el-tabs class="tab_2" v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane  label="Niveau 1" name="first"></el-tab-pane>
-                <el-tab-pane  label="Niveau 2" name="second"></el-tab-pane>
-                <el-tab-pane  label="Niveau 3" name="third"></el-tab-pane>
-                </el-tabs>
-        </template>
-            <template>
                 
                 <el-table header-cell-class-name="header-cell"
                     :data="tableData"
