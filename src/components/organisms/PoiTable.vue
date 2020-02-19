@@ -72,9 +72,9 @@
         :shop="selectedShop"
         isEdit
         v-if="selectedShop !== null"
-        :visible="showModal"
+        :visible="showEditModal"
       />
-      <poi-modal ref="addPoiModal" />
+      <poi-modal ref="addPoiModal" :visible="showAddModal" />
     </template>
   </div>
 </template>
@@ -128,69 +128,21 @@ export default {
           width: 200
         }
       ],
-      dataTable: [
-        {
-          id: 1,
-          name: "GIVEN",
-          address: "89 rue de Bagnolet",
-          zipcode: "75020",
-          city: "Paris",
-          type: "Restaurant",
-          tags: ["Vegan", "GlutenFree"],
-          greenscore: "37",
-          price: 2,
-          accessibility: true
-        },
-        {
-          id: 2,
-          name: "ABATTOIR VEGETAL",
-          address: "61 rue Ramey",
-          zipcode: "75018",
-          city: "Paris",
-          type: "Restaurant",
-          tags: ["Vegan", "GlutenFree"],
-          greenscore: "89",
-          price: 1,
-          accessibility: true
-        },
-        {
-          id: 3,
-          name: "LE MEZZE DU CHEF",
-          address: "61 rue Ramey",
-          zipcode: "75018",
-          city: "Paris",
-          type: "Restaurant",
-          tags: ["Vegan", "GlutenFree"],
-          greenscore: "89",
-          price: 3,
-          accessibility: false
-        },
-        {
-          id: 4,
-          name: "LE MEZZE DU CHEF",
-          address: "61 rue Ramey",
-          zipcode: "75018",
-          city: "Paris",
-          type: "Boutique",
-          tags: ["Vegan", "GlutenFree"],
-          greenscore: "19",
-          price: 2,
-          accessibility: true
-        }
-      ],
+      dataTable: null,
       selectedShop: null,
-      showModal: false
+      showAddModal: false,
+      showEditModal: false
     };
   },
   mounted() {
     axios
-      .get(`${window.config.api_root_url}/shops`)
+      .get(`${window.config.api_root_url}shops`)
       .then(response => (this.dataTable = response.data));
   },
   methods: {
     handleEdit(index, shop) {
       this.selectedShop = shop;
-      this.showModal = true;
+      this.showEditModal = true;
 
       this.$refs.editPoiModal.open();
     },
@@ -198,6 +150,8 @@ export default {
       console.log(index, row); // eslint-disable-line
     },
     addShop() {
+      this.showAddModal = true;
+      // eslint-disable-next-line no-console
       this.$refs.addPoiModal.open();
     }
   }

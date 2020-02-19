@@ -454,6 +454,6 @@ export default {
 
 <style lang="scss">
 .home {
-  padding: 0 2rem 2rem;
+  padding: 2rem;
 }
 </style>

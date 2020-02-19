@@ -1,11 +1,10 @@
 <template>
   <el-dialog
     :title="isEdit ? 'Modifier commerçant' : 'Ajouter un commerçant'"
-    :visible.sync="visible"
+    :visible.sync="showModal"
     append-to-body
     width="70%"
     @close="closeModal"
-    destroy-on-close
   >
     <h2>{{ isEdit ? "Modifier" : "Ajouter" }} un commerçant</h2>
     <el-form :model="formData">
@@ -57,45 +56,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-
-      <el-row :gutter="20" style="margin: 2rem 0">
-        <el-col :span="6">
-          <div class="greenscore-icon">
-            <div class="greenscore-picto">
-              <i class="el-icon-fork-spoon" style="font-size: 2rem"></i>
-            </div>
-            <div class="greenscore-value">
-              <div class="greenscore-icon-label">FOOD</div>
-              <div class="greenscore-icon-label">0%</div>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="greenscore-icon">
-            <div class="greenscore-picto">
-              <i class="el-icon-user" style="font-size: 2rem"></i>
-            </div>
-            <div class="greenscore-value">
-              <div class="greenscore-icon-label">MATERIEL</div>
-              <div class="greenscore-icon-label">0%</div>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="greenscore-icon">
-            <div class="greenscore-picto">
-              <i class="el-icon-box" style="font-size: 2rem"></i>
-            </div>
-            <div class="greenscore-value">
-              <div class="greenscore-icon-label">SOCIAL</div>
-              <div class="greenscore-icon-label">0%</div>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <el-button type="primary" @click="innerVisible = true">Modifier</el-button>
-        </el-col>
-      </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="Prix" class="label-style">
@@ -123,49 +83,10 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-button type="primary" @click="successCallback">Enregistrer</el-button>
+        <el-button type="primary" @click="isEdit ? edit() : addShop()">Enregistrer</el-button>
         <el-button @click="showModal = false">Annuler</el-button>
       </el-row>
     </el-form>
-
-    <!-- GREENSCORE MODAL -->
-    <el-dialog
-      width="50%"
-      title="Modification du GREENSCORE"
-      :visible.sync="innerVisible"
-      append-to-body
-    >
-      <h2>Catégories et sous-critères</h2>
-
-      <el-form v-model="greenscoreData">
-        <h3>FOOD</h3>
-        <el-form-item
-          :label="item.label"
-          v-for="(item, index) in greenscoreData.food"
-          :key="index * 10"
-        >
-          <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
-        </el-form-item>
-        <h3>MATERIEL</h3>
-        <el-form-item
-          :label="item.label"
-          v-for="(item, index) in greenscoreData.resources"
-          :key="index"
-        >
-          <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
-        </el-form-item>
-        <h3>SOCIAL</h3>
-        <el-form-item
-          :label="item.label"
-          v-for="(item, index) in greenscoreData.social"
-          :key="index"
-        >
-          <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
-        </el-form-item>
-        <el-button @click="innerVisible = false">Annuler</el-button>
-        <el-button type="primary" @click="submitGreenscore">Enregistrer</el-button>
-      </el-form>
-    </el-dialog>
   </el-dialog>
 </template>
 
@@ -200,40 +121,8 @@ export default {
         price: "",
         description: ""
       },
-      greenscoreData: {
-        food: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ],
-        resources: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ],
-        social: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ]
-      },
-      showModal: this.visible,
-      innerVisible: false
+
+      showModal: this.visible
     };
   },
 
@@ -243,10 +132,10 @@ export default {
     this.isEdit ? (this.formData = this.shop) : this.formData;
     // eslint-disable-next-line no-console
 
-    axios.get("http://35.180.73.134/:3000/greenscore").then(response =>
-      // eslint-disable-next-line no-console
-      console.log(response.data)((this.greenscoreData = response.data))
-    );
+    // axios.get("http://35.180.73.134/:3000/greenscore").then(response =>
+    //   // eslint-disable-next-line no-console
+    //   console.log(response.data)((this.greenscoreData = response.data))
+    // );
   },
 
   updated: function() {
@@ -262,21 +151,24 @@ export default {
       this.$emit("successCallback");
     },
     edit() {
-      this.formData.tags = this.formData.tags.split(", ");
-      this.$emit("edited");
+      axios.patch(
+        `${window.config.api_root_url}shops/update/${this.shop._id}`,
+        this.formData
+      );
+      this.showModal = false;
     },
 
     onClickIcon() {
       // eslint-disable-next-line no-console
       this.formData.price += 1;
     },
+    addShop() {
+      axios.post(`${window.config.api_root_url}shops/add`, this.formData);
 
-    submitGreenscore() {
-      // eslint-disable-next-line no-console
-      console.log("submit");
+      this.showModal = false;
     },
     closeModal() {
-      this.visible = false;
+      this.showModal = false;
     }
   }
 };

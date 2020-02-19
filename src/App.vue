@@ -23,11 +23,18 @@ export default {
     Header,
     Sidebar
   },
+  created() {
+    let token = localStorage.getItem("token");
+    console.debug(token); //eslint-disable-line
+    if (token !== undefined && token !== "" && token !== null) {
+      console.debug("logged"); //eslint-disable-line
+      this.$store.commit("AUTHENTICATE_USER");
+    }
+  },
   computed: {
     ...mapGetters(["isLoggedIn"]),
     UserIsLogged() {
-      // return this.$store.state.currentUser.authenticated;
-      return true;
+      return this.$store.state.currentUser.authenticated;
     }
   }
 };
@@ -50,6 +57,7 @@ body {
   color: #2c3e50;
 }
 #app {
+  min-height: 100vh;
 }
 
 #nav {

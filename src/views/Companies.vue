@@ -59,6 +59,7 @@
 import ArchiveModal from "../components/organisms/archiveModal.vue";
 import EditClientModal from "../components/organisms/editClientModal.vue";
 import openGeocoder from "node-open-geocoder";
+import {mapActions} from "vuex";
 
 // search
 export default {
@@ -87,9 +88,21 @@ export default {
 
   computed: {},
 
-  mounted: function() {},
+  mounted: function() {
+    this.retrieveData();
+  },
 
   methods: {
+    ...mapActions([
+      'fetchData',
+      'postData',
+      'createData'
+    ]),
+    retrieveData() {
+      this.fetchData({
+        modelName: 'structures'
+      });
+    },
     editClient() {
       this.$refs.editModal.open();
       console.debug("open edit modal"); // eslint-disable-line
