@@ -1,42 +1,66 @@
 <template>
-  <!-- GREENSCORE MODAL -->
   <el-dialog
-    width="50%"
-    title="Modification du GREENSCORE"
     :visible.sync="showModal"
     append-to-body
+    width="70%"
+    @close="showModal = false"
+    class="yep"
   >
-    <h2>Catégories et sous-critères</h2>
-
-    <el-form v-model="greenscoreData">
-      <h3>FOOD</h3>
-      <el-form-item
-        :label="item.label"
-        v-for="(item, index) in greenscoreData.food"
-        :key="index * 10"
-      >
-        <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
+    <h2 class="title">{{ isEdit ? "Modifier" : "Ajouter" }} un nouveau critère</h2>
+    <el-form :model="formData">
+      <el-row type="flex" class="row-bg" justify="center" :gutter="20">
+        <el-col :span="8">
+          <el-form-item class="text" label="Categorie">
+            <el-select v-model="formData.type" placeholder="Selectionner une Catégorie">
+              <el-option label="Food" value="Food"></el-option>
+              <el-option label="Social" value="Social"></el-option>
+              <el-option label="Materiel" value="Materiel"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item class="text" label="Nom du critère">
+            <el-input v-model="formData.name"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20" type="flex" class="row-bg" justify="center">
+        <el-col :span="8">
+          <template>
+            <p class="text">Note</p>
+            <div class="content-note">
+              <input type="number" />
+              <div class="icon">
+                <i class="el-icon-plus"></i>
+                <i class="el-icon-minus"></i>
+              </div>
+            </div>
+          </template>
+        </el-col>
+        <el-col :span="8">
+          <template>
+            <p class="text">Pondération</p>
+            <div class="content-note">
+              <input type="number" pattern="[0-9]*" />
+              <div class="icon">
+                <i class="el-icon-plus"></i>
+                <i class="el-icon-minus"></i>
+              </div>
+            </div>
+          </template>
+        </el-col>
+      </el-row>
+      <el-form-item class="valid">
+        <el-row type="flex" class="row-bg" justify="center">
+          <el-button @click="showModal = false">Annuler</el-button>
+          <el-button type="primary" @click="successCallback">Enregister</el-button>
+        </el-row>
       </el-form-item>
-      <h3>MATERIEL</h3>
-      <el-form-item
-        :label="item.label"
-        v-for="(item, index) in greenscoreData.resources"
-        :key="index"
-      >
-        <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
-      </el-form-item>
-      <h3>SOCIAL</h3>
-      <el-form-item :label="item.label" v-for="(item, index) in greenscoreData.social" :key="index">
-        <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
-      </el-form-item>
-      <el-button @click="innerVisible = false">Annuler</el-button>
-      <el-button type="primary" @click="submitGreenscore">Enregistrer</el-button>
     </el-form>
   </el-dialog>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   components: {},
 
@@ -47,118 +71,89 @@ export default {
     isEdit: {
       type: Boolean,
       default: false
-    },
-    visible: {
-      type: Boolean
     }
   },
 
   data: function() {
     return {
-      greenscoreData: {
-        food: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ],
-        resources: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ],
-        social: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ]
+      num: 1,
+      formData: {
+        name: "",
+        type: "",
+        adress: "",
+        zipcode: "",
+        city: "",
+        tags: ""
       },
-
-      showModal: this.visible
+      showModal: false
     };
   },
 
   computed: {},
 
-  mounted: function() {
-    // eslint-disable-next-line no-console
-
-    axios.get("http://35.180.73.134/:3000/greenscore").then(response =>
-      // eslint-disable-next-line no-console
-      console.log(response.data)((this.greenscoreData = response.data))
-    );
-  },
-
-  updated: function() {
-    this.isEdit ? (this.formData = this.shop) : this.formData;
-  },
+  mounted: function() {},
 
   methods: {
     open() {
-      // eslint-disable-next-line no-console
       this.showModal = true;
     },
-
-    submitGreenscore() {
-      // eslint-disable-next-line no-console
-      console.log("submit");
+    successCallback() {
+      this.$emit("successCallback");
     },
-
-    closeModal() {
-      this.visible = false;
+    edit() {
+      this.$emit("edited");
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.label-style {
-  font-weight: bold;
-  label {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]:hover::-webkit-inner-spin-button,
+input[type="number"]:hover::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+input {
+  background: #ffffff;
+  border: 1px solid #c0c5d2;
+  border-radius: 4px;
+  width: 58px;
+  height: 40px;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.el-dialog__body {
+  .title {
+    font-style: normal;
+    font-weight: bold !important;
+    font-size: 30px !important;
+    line-height: 36px !important;
+    text-align: center;
+    letter-spacing: 0.144375px;
+    color: #14112d !important;
+  }
+  .content-note {
+    width: 30%;
+    display: flex;
+  }
+  .text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14.45px !important;
+    line-height: 17px;
+    letter-spacing: 1.49286px;
     text-transform: uppercase;
   }
-}
-
-.greenscore-icon {
-  width: 100%;
-  display: flex;
-}
-.greenscore-picto {
-  width: 2rem;
-
-  i {
-    font-size: 2rem;
+  .icon {
+    margin-left: 10px;
+    margin-top: 10px;
   }
 }
-
-.greenscore-icon-label {
-  margin-left: 0.5rem;
-  margin-bottom: 0;
-}
-
-.greenscore-value {
-  display: flex;
-  flex-direction: column;
-}
-.activePrice {
-  color: rgba(192, 197, 210, 1);
-}
-
-.inactivePrice {
-  color: rgba(192, 197, 210, 0.3);
+.valid {
+  margin-top: 40px;
 }
 </style>

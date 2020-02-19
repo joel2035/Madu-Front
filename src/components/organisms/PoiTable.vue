@@ -15,7 +15,7 @@
         <el-table-column label="Type" width="180">
           <el-progress type="circle" :percentage="25"></el-progress>
           <template slot-scope="scope">
-            <span style="margin-right: 10px">{{ scope.row.description }}</span>
+            <span style="margin-right: 10px">{{ scope.row.type }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Tags">
@@ -29,7 +29,11 @@
         </el-table-column>
         <el-table-column label="Greenscore" width="150">
           <template slot-scope="scope">
-            <span>{{ scope.row.greenscore }}%</span>
+            <span v-if="scope.row.greenscore !== null">
+              {{
+              scope.row.greenscore
+              }}
+            </span>
           </template>
         </el-table-column>
         <el-table-column label="Localisation">
@@ -56,8 +60,14 @@
             <span>{{ scope.row.accessibility ? "Oui" : "Non" }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Opérations">
+        <el-table-column label="Opérations" width="300">
           <template slot-scope="scope">
+            <el-button
+              size="mini"
+              type="success"
+              @click="handleGreenscore(scope.row)"
+              v-if="!scope.row.greenscore"
+            >Ajouter un greenscore</el-button>
             <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">
               <i class="el-icon-edit"></i>
             </el-button>
@@ -80,6 +90,7 @@
         ref="archivePoiModal"
         @successCallback="archiveShop"
       />
+      <poi-greenscore-modal ref="addGreenscoreModal" />
     </template>
   </div>
 </template>
@@ -100,13 +111,15 @@
 </style>
 
 <script>
+import poiGreenscoreModal from "../molecules/poiGreenscoreModal";
 import poiModal from "../organisms/poiModal";
 import archiveModal from "../organisms/archiveModal";
 import axios from "axios";
 export default {
   components: {
     poiModal,
-    archiveModal
+    archiveModal,
+    poiGreenscoreModal
   },
   data() {
     return {
@@ -138,7 +151,8 @@ export default {
       dataTable: null,
       selectedShop: null,
       showAddModal: false,
-      showEditModal: false
+      showEditModal: false,
+      showGreenscoreModal: false
     };
   },
   mounted() {
@@ -161,6 +175,11 @@ export default {
       this.showAddModal = true;
       // eslint-disable-next-line no-console
       this.$refs.addPoiModal.open();
+    },
+    handleGreenscore() {
+      this.showGreenscoreModal = true;
+      // eslint-disable-next-line no-console
+      this.$refs.addGreenscoreModal.open();
     },
     archiveShop() {
       // eslint-disable-next-line no-console
