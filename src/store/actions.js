@@ -46,9 +46,6 @@ export default {
     });
   },
   postData(context, payload) {
-<<<<<<< HEAD
-    axios.post(payload.url, payload.params);
-=======
     return new Promise((resolve, reject) => {
       let url = `${window.config.api_root_url}${payload.modelName}/`;
       if (payload.is_update === true) {
@@ -80,7 +77,6 @@ export default {
           reject(err);
         });
     });
->>>>>>> e072bf986d0a05ba22f882eb4907ecc337c4db8f
   }
   // createData(context, payload) {
 

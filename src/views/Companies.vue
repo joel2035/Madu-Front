@@ -9,7 +9,12 @@
     <div v-if="clients.length === 0" class="no-results">
       Aucune entreprise n'existe, veuillez en créer une
     </div>
-    <el-table v-else v-loading="loading" :data="clients" header-cell-class-name="header-cell">
+    <el-table
+      v-else
+      v-loading="loading"
+      :data="clients"
+      header-cell-class-name="header-cell"
+    >
       <el-table-column prop="name" label="Nom">
         <template slot-scope="scope">
           <div class="company-name">{{ scope.row.name }}</div>
@@ -54,15 +59,7 @@
       @successCallback="archiveClient"
     ></archive-modal>
     <map-modal :selectedClient="selectedClient"></map-modal>
-<<<<<<< HEAD
-    <edit-client-modal
-      ref="editModal"
-      :client="selectedClient"
-      :clientCoords="clientCoords"
-    ></edit-client-modal>
-=======
     <client-modal ref="clientModal" :client="selectedClient"></client-modal>
->>>>>>> e072bf986d0a05ba22f882eb4907ecc337c4db8f
   </div>
 </template>
 
@@ -70,12 +67,8 @@
 import ArchiveModal from "../components/organisms/archiveModal.vue";
 import ClientModal from "../components/organisms/editClientModal.vue";
 import openGeocoder from "node-open-geocoder";
-<<<<<<< HEAD
+import MapModal from "../components/organisms/mapModal.vue";
 import { mapActions } from "vuex";
-=======
-import MapModal from "../components/organisms/mapModal.vue"
-import {mapActions} from "vuex";
->>>>>>> e072bf986d0a05ba22f882eb4907ecc337c4db8f
 
 // search
 export default {
@@ -116,19 +109,18 @@ export default {
     retrieveData() {
       this.loading = true;
       this.fetchData({
-<<<<<<< HEAD
         modelName: "structures"
-=======
-        modelName: 'structures'
-      }).then((resp) => {
-        console.debug(resp.data); //eslint-disable-line
-        this.clients = resp.data;
-      }).catch((err) => {
-        console.error(err) //eslint-disable-line
-      }).finally(() => {
-        this.loading = false;
->>>>>>> e072bf986d0a05ba22f882eb4907ecc337c4db8f
-      });
+      })
+        .then(resp => {
+          console.debug(resp.data); //eslint-disable-line
+          this.clients = resp.data;
+        })
+        .catch(err => {
+          console.error(err); //eslint-disable-line
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
     editClient(client) {
       this.selectedClient = client;
@@ -157,7 +149,7 @@ export default {
     },
     openCreationModal() {
       this.selectedClient = {};
-      this.$refs.clientModal.open()
+      this.$refs.clientModal.open();
       console.debug("open creation modal"); // eslint-disable-line
     }
   }
