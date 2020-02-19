@@ -5,7 +5,7 @@
     width="70%"
     @close="showModal = false"
   class="yep" >
-    <h2 class="title">{{ isEdit ? "Modifier" : "Ajouter" }} Un nomveau critère </h2>
+    <h2 class="title">{{ isEdit ? "Modifier" : "Ajouter" }} un nouveau critère </h2>
     <el-form   :model="formData">
       <el-row 
         type="flex" 
@@ -37,13 +37,25 @@
           <el-col :span="8">
             <template>
                 <p class="text">Note</p>
-                <el-input-number v-model="num" controls-position="right" @change="handleChange" :min="1" :max="10"></el-input-number>
+                <div class="content-note">
+                     <input type="number"/>
+                     <div class="icon">
+                        <i class="el-icon-plus "></i>
+                        <i class="el-icon-minus "></i>
+                     </div>
+                </div>
             </template>
           </el-col>
           <el-col :span="8">
               <template>
                   <p class="text">Pondération</p>
-                <el-input-number v-model="num"  @change="handleChange" :min="1" :max="10"></el-input-number>
+                <div class="content-note">
+                     <input type="number" pattern="[0-9]*"/>
+                     <div class="icon">
+                        <i class="el-icon-plus"></i>
+                        <i class="el-icon-minus"></i>
+                     </div>
+                </div>
             </template>
           </el-col>
       </el-row>
@@ -102,7 +114,6 @@ export default {
       this.$emit("successCallback");
     },
     edit() {
-      this.formData.tags = this.formData.tags.split(", ");
       this.$emit("edited");
     }
   }
@@ -110,22 +121,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .el-dialog__body .title {
-    font-style: normal;
-    font-weight: bold !important;
-    font-size: 30px  !important;
-    line-height: 36px  !important;
-    text-align: center;
-    letter-spacing: 0.144375px;
-    color: #14112D  !important;
+
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']:hover::-webkit-inner-spin-button, 
+    input[type='number']:hover::-webkit-outer-spin-button {
+    -webkit-appearance: none !important; 
+    margin: 0!important; 
+    }
+    input{
+        background: #FFFFFF;
+        border: 1px solid #C0C5D2;
+        border-radius: 4px;
+        width:58px;
+        height:40px;
+    }
+    input[type=number] {
+  -moz-appearance:textfield;
 }
-   .el-dialog__body .text{
+
+       
+    .el-dialog__body {
+        .title {
+        font-style: normal;
+        font-weight: bold !important;
+        font-size: 30px  !important;
+        line-height: 36px  !important;
+        text-align: center;
+        letter-spacing: 0.144375px;
+        color: #14112D  !important;
+    }
+        .content-note{
+         width: 30%;
+         display:flex;
+     }
+        .text{
         font-style: normal;
         font-weight: normal;
         font-size: 14.45px !important;
         line-height: 17px;
         letter-spacing: 1.49286px;
         text-transform: uppercase;
+    }
+    .icon{
+        margin-left: 10px;
+        margin-top:10px;
+    }
     }
     .valid{
         margin-top:40px;
