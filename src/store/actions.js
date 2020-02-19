@@ -34,7 +34,7 @@ export default {
   },
   postData(context, payload) {
     axios.post(payload.url, payload.params);
-  },
+  }
   // createData(context, payload) {
 
   // }

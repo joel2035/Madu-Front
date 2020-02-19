@@ -51,7 +51,11 @@
       @successCallback="archiveClient"
     ></archive-modal>
     <map-modal :selectedClient="selectedClient"></map-modal>
-    <edit-client-modal ref="editModal" :client="selectedClient" :clientCoords="clientCoords"></edit-client-modal>
+    <edit-client-modal
+      ref="editModal"
+      :client="selectedClient"
+      :clientCoords="clientCoords"
+    ></edit-client-modal>
   </div>
 </template>
 
@@ -59,7 +63,7 @@
 import ArchiveModal from "../components/organisms/archiveModal.vue";
 import EditClientModal from "../components/organisms/editClientModal.vue";
 import openGeocoder from "node-open-geocoder";
-import {mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 // search
 export default {
@@ -93,14 +97,10 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'fetchData',
-      'postData',
-      'createData'
-    ]),
+    ...mapActions(["fetchData", "postData", "createData"]),
     retrieveData() {
       this.fetchData({
-        modelName: 'structures'
+        modelName: "structures"
       });
     },
     editClient() {

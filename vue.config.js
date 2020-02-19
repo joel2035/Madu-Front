@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 
-console.debug('test');
+console.debug("test");
 
 module.exports = {
   configureWebpack: {

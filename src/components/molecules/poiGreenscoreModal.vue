@@ -1,42 +1,113 @@
 <template>
   <!-- GREENSCORE MODAL -->
-  <el-dialog
-    width="50%"
-    title="Modification du GREENSCORE"
-    :visible.sync="showModal"
-    append-to-body
-  >
-    <h2>Catégories et sous-critères</h2>
-
-    <el-form v-model="greenscoreData">
-      <h3>FOOD</h3>
-      <el-form-item
-        :label="item.label"
-        v-for="(item, index) in greenscoreData.food"
-        :key="index * 10"
-      >
-        <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
-      </el-form-item>
-      <h3>MATERIEL</h3>
-      <el-form-item
-        :label="item.label"
-        v-for="(item, index) in greenscoreData.resources"
-        :key="index"
-      >
-        <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
-      </el-form-item>
-      <h3>SOCIAL</h3>
-      <el-form-item :label="item.label" v-for="(item, index) in greenscoreData.social" :key="index">
-        <el-input-number v-model="item.value" :min="0" :max="100"></el-input-number>
-      </el-form-item>
-      <el-button @click="innerVisible = false">Annuler</el-button>
-      <el-button type="primary" @click="submitGreenscore">Enregistrer</el-button>
+  <el-dialog width="80%" title="GREENSCORE" :visible.sync="showModal" append-to-body>
+    <h2 style="margin: 3rem 0 1.5rem 0">Food</h2>
+    <el-form v-model="formData['food']">
+      <el-row :gutter="20" v-for="(foodCriteria, index) in formData.food" :key="index">
+        <el-col :span="12">
+          <el-form-item label="Nom du critère" class="label-style">
+            <el-input v-model="formData.food[index].criteria"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="Note" class="label-style">
+            <el-input-number
+              v-model="formData.food[index].note"
+              :min="0"
+              :max="100"
+              controls-position="right"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="Pondération" class="label-style">
+            <el-input-number
+              v-model="formData.food[index].coefficient"
+              :min="0"
+              :max="100"
+              controls-position="right"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-button @click="addCriteria('food')">Ajouter critère</el-button>
+      </el-row>
     </el-form>
+    <h2 style="margin: 3rem 0 1.5rem 0">Social</h2>
+    <el-form v-model="formData['social']">
+      <el-row :gutter="20" v-for="(socialCriteria, index) in formData.social" :key="index">
+        <el-col :span="12">
+          <el-form-item label="Nom du critère" class="label-style">
+            <el-input v-model="formData.social[index].criteria"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="Note" class="label-style">
+            <el-input-number
+              v-model="formData.social[index].note"
+              :min="0"
+              :max="100"
+              controls-position="right"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="Pondération" class="label-style">
+            <el-input-number
+              v-model="formData.social[index].coefficient"
+              :min="0"
+              :max="100"
+              controls-position="right"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-button @click="addCriteria('social')">Ajouter critère</el-button>
+      </el-row>
+    </el-form>
+    <h2 style="margin: 3rem 0 1.5rem 0">Matériel</h2>
+    <el-form v-model="formData['material']">
+      <el-row :gutter="20" v-for="(materialCriteria, index) in formData.material" :key="index">
+        <el-col :span="12">
+          <el-form-item label="Nom du critère" class="label-style">
+            <el-input v-model="formData.material[index].criteria"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="Note" class="label-style">
+            <el-input-number
+              v-model="formData.material[index].note"
+              :min="0"
+              :max="100"
+              controls-position="right"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="Pondération" class="label-style">
+            <el-input-number
+              v-model="formData.material[index].coefficient"
+              :min="0"
+              :max="100"
+              controls-position="right"
+            ></el-input-number>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-button @click="addCriteria('material')">Ajouter critère</el-button>
+      </el-row>
+    </el-form>
+    <el-row style="margin: 2rem 0">
+      <el-button type="primary" @click="submitGreenscore()">Enregistrer</el-button>
+      <el-button @click="showModal = false">Annuler</el-button>
+    </el-row>
   </el-dialog>
 </template>
 
 <script>
-import axios from "axios";
 export default {
   components: {},
 
@@ -55,37 +126,10 @@ export default {
 
   data: function() {
     return {
-      greenscoreData: {
-        food: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ],
-        resources: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ],
-        social: [
-          {
-            label: "Provenance et matières prémières",
-            value: "origin"
-          },
-          {
-            label: "Agriculture concernée",
-            value: "Agriculture"
-          }
-        ]
+      formData: {
+        food: [{ criteria: "", note: "", coefficient: "" }],
+        social: [],
+        material: []
       },
 
       showModal: this.visible
@@ -94,14 +138,7 @@ export default {
 
   computed: {},
 
-  mounted: function() {
-    // eslint-disable-next-line no-console
-
-    axios.get(`${window.config.api_root_url}greenscore`).then(response =>
-      // eslint-disable-next-line no-console
-      console.log(response.data)((this.greenscoreData = response.data))
-    );
-  },
+  mounted: function() {},
 
   updated: function() {
     this.isEdit ? (this.formData = this.shop) : this.formData;
@@ -120,6 +157,10 @@ export default {
 
     closeModal() {
       this.visible = false;
+    },
+
+    addCriteria(category) {
+      this.formData[category].push({ criteria: "", note: "", coefficient: "" });
     }
   }
 };

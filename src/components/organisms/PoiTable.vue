@@ -29,11 +29,7 @@
         </el-table-column>
         <el-table-column label="Greenscore" width="150">
           <template slot-scope="scope">
-            <span v-if="scope.row.greenscore !== null">
-              {{
-              scope.row.greenscore
-              }}
-            </span>
+            <span v-if="scope.row.greenscore !== null">{{ scope.row.greenscore }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Localisation">
@@ -90,7 +86,7 @@
         ref="archivePoiModal"
         @successCallback="archiveShop"
       />
-      <poi-greenscore-modal ref="addGreenscoreModal" />
+      <poi-greenscore-modal ref="addGreenscoreModal" :shop="selectedShop" />
     </template>
   </div>
 </template>

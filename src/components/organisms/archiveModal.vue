@@ -6,7 +6,9 @@
     append-to-body
     @close="showModal = false"
   >
-    <div class="content">Êtes-vous sûr(e) de vouloir archiver {{ modelName }}</div>
+    <div class="content">
+      Êtes-vous sûr(e) de vouloir archiver {{ modelName }}
+    </div>
     <span slot="footer">
       <el-button @click="showModal = false">Annuler</el-button>
       <el-button type="primary" @click="successCallback">Archiver</el-button>

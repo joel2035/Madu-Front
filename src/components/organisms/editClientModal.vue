@@ -62,8 +62,7 @@
 
 <script>
 export default {
-  components: {
-  },
+  components: {},
 
   props: {
     client: {

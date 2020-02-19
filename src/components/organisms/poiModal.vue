@@ -119,7 +119,8 @@ export default {
         tags: "",
         accessibility: "",
         price: "",
-        description: ""
+        description: "",
+        greenscore: { food: [], social: [], material: [] }
       },
 
       showModal: this.visible
