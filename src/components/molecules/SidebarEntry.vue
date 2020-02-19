@@ -1,17 +1,12 @@
 <template>
   <div class="entry" @click="redirect">
     <i :class="icon"></i>
-    <div class="name">{{ name }}</div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    name: {
-      type: String,
-      required: true
-    },
     linkName: {
       type: String,
       required: true
@@ -36,13 +31,13 @@ export default {
   display: flex;
   align-items: center;
   padding: 10px;
-  color: white;
-  i {
-    margin-right: 10px;
+  color: #c0c5d2;
+  &.selected {
+    color: #0077ff;
   }
   &:hover {
     cursor: pointer;
-    background-color: #247ba0;
+    color: #77848f;
   }
 }
 </style>

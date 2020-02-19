@@ -1,60 +1,40 @@
 <template>
   <div class="header">
-    <div class="logo">
-      <img src="" alt="MADU logo" />
-    </div>
-    <div class="interactions">
-      <el-input class="search-input" v-model="searchFilter"></el-input>
-      <div class="logout-icon">
-        <v-icon name="power-off"></v-icon>
-      </div>
-    </div>
+    <h1 class="title">MADU</h1>
+    <el-button class="logout-button" type="primary" @click="logout"
+      >Se déconnecter</el-button
+    >
   </div>
 </template>
 
 <script>
-import "vue-awesome/icons/power-off";
-
 export default {
   data: function() {
-    return {
-      searchFilter: ""
-    };
+    return {};
+  },
+  method: {
+    logout() {
+      console.debug('log out'); // eslint-disable-line
+    }
   }
 };
 </script>
 
 <style lang="scss">
 .header {
+  position: fixed;
+  z-index: 2;
+  background-color: white;
+  top: 0;
+  left: 75px;
+  right: 0;
   display: flex;
   align-items: center;
-  padding: 20px 0;
-  border-bottom: 1px solid #ccc;
-  .logo {
-    width: 20%;
-  }
-  .interactions {
-    width: 80%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 30px;
-    .search-input {
-      input {
-        width: 200px;
-        border-radius: 30px;
-        transition: all ease-in-out 0.25s;
-        border: 1px solid #ccc;
-        &:focus {
-          width: 400px;
-        }
-      }
-    }
-    .logout-icon {
-      border-radius: 30px;
-      padding: 11px 11px 5px 11px;
-      border: 1px solid #ccc;
-    }
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 50px;
+  .logout-button {
+    background-color: #0077ff;
   }
 }
 </style>

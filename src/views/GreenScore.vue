@@ -1,4 +1,4 @@
-    <template>
+<template>
         <div class="companies">
             <div class="view-header">
                 <h1 class="title">Gestion du Greenscore</h1>
