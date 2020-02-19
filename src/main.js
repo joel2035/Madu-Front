@@ -19,7 +19,9 @@ Vue.use(ElementUI, {
 Vue.prototype.$http = Axios;
 const token = localStorage.getItem("token");
 if (token) {
-  Vue.prototype.$http.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  Vue.prototype.$http.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${token}`;
   Vue.prototype.$http.defaults.headers.common["Access-Control-Allow-Origin"] =
     "*";
 }
@@ -33,7 +35,7 @@ let app = new Vue({
 
 window.app = app;
 
-app.$router.push({name: 'home'})
+app.$router.push({ name: "home" });
 
 // TODO insérer l'adresse de l'api ici
 window.config = {

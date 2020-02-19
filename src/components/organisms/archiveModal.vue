@@ -6,9 +6,7 @@
     append-to-body
     @close="showModal = false"
   >
-    <div class="content">
-      Êtes-vous sûr(e) de vouloir archiver ce {{ modelName }}
-    </div>
+    <div class="content">Êtes-vous sûr(e) de vouloir archiver {{ modelName }}</div>
     <span slot="footer">
       <el-button @click="showModal = false">Annuler</el-button>
       <el-button type="primary" @click="successCallback">Archiver</el-button>
@@ -24,6 +22,9 @@ export default {
     modelName: {
       type: String,
       required: true
+    },
+    successCallback: {
+      type: Function
     }
   },
 
@@ -40,9 +41,6 @@ export default {
   methods: {
     open() {
       this.showModal = true;
-    },
-    successCallback() {
-      this.$emit("successCallback");
     }
   }
 };

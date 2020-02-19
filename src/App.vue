@@ -24,17 +24,15 @@ export default {
     Sidebar
   },
   created() {
-    let token = localStorage.getItem('token')
-    console.debug(token);  //eslint-disable-line
+    let token = localStorage.getItem("token");
+    console.debug(token); //eslint-disable-line
     if (token !== undefined && token !== "" && token !== null) {
-      console.debug('logged'); //eslint-disable-line
-      this.$store.commit('AUTHENTICATE_USER')
+      console.debug("logged"); //eslint-disable-line
+      this.$store.commit("AUTHENTICATE_USER");
     }
   },
   computed: {
-    ...mapGetters([
-      "isLoggedIn"
-    ]),
+    ...mapGetters(["isLoggedIn"]),
     UserIsLogged() {
       return this.$store.state.currentUser.authenticated;
     }
@@ -81,7 +79,7 @@ body {
   top: 80px;
   left: 75px;
   right: 0;
-  background-color: #FAFBFC;
+  background-color: #fafbfc;
   min-height: calc(100vh - 80px);
   // margin-left: 200px;
   // margin-top: 81px;

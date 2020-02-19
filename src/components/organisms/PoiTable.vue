@@ -15,7 +15,7 @@
         <el-table-column label="Type" width="180">
           <el-progress type="circle" :percentage="25"></el-progress>
           <template slot-scope="scope">
-            <span style="margin-right: 10px">{{ scope.row.description }}</span>
+            <span style="margin-right: 10px">{{ scope.row.type }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Tags">
@@ -29,13 +29,17 @@
         </el-table-column>
         <el-table-column label="Greenscore" width="150">
           <template slot-scope="scope">
-            <span>{{ scope.row.greenscore }}</span>
+            <span v-if="scope.row.greenscore !== null">
+              {{
+              scope.row.greenscore
+              }}
+            </span>
           </template>
         </el-table-column>
         <el-table-column label="Localisation">
           <template slot-scope="scope">
             <span>
-              {{ scope.row.address }}, {{ scope.row.zipcode }},
+              {{ scope.row.adress }}, {{ scope.row.zipcode }},
               {{ scope.row.city }}
             </span>
           </template>
@@ -56,20 +60,38 @@
             <span>{{ scope.row.accessibility ? "Oui" : "Non" }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="Opérations">
+        <el-table-column label="Opérations" width="300">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" @click="handleEdit(scope.row)">
+            <el-button
+              size="mini"
+              type="success"
+              @click="handleGreenscore(scope.row)"
+              v-if="!scope.row.greenscore"
+            >Ajouter un greenscore</el-button>
+            <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">
               <i class="el-icon-edit"></i>
             </el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">
               <i class="el-icon-delete"></i>
             </el-button>
           </template>
         </el-table-column>
       </el-table>
+      <poi-modal
+        ref="editPoiModal"
+        :shop="selectedShop"
+        isEdit
+        v-if="selectedShop !== null"
+        :visible="showEditModal"
+      />
+      <poi-modal ref="addPoiModal" :visible="showAddModal" />
+      <archive-modal
+        :modelName="selectedShop ? selectedShop.name : 'ce lieu'"
+        ref="archivePoiModal"
+        @successCallback="archiveShop"
+      />
+      <poi-greenscore-modal ref="addGreenscoreModal" />
     </template>
-    <poi-modal ref="editPoiModal" :shop="selectedShop" isEdit />
-    <poi-modal ref="addPoiModal" />
   </div>
 </template>
 
@@ -89,11 +111,15 @@
 </style>
 
 <script>
-import poiModal from "../molecules/poiModal";
+import poiGreenscoreModal from "../molecules/poiGreenscoreModal";
+import poiModal from "../organisms/poiModal";
+import archiveModal from "../organisms/archiveModal";
 import axios from "axios";
 export default {
   components: {
-    poiModal
+    poiModal,
+    archiveModal,
+    poiGreenscoreModal
   },
   data() {
     return {
@@ -122,76 +148,45 @@ export default {
           width: 200
         }
       ],
-      dataTable: [
-        {
-          id: 1,
-          name: "GIVEN",
-          address: "89 rue de Bagnolet",
-          zipcode: "75020",
-          city: "Paris",
-          type: "Restaurant",
-          tags: ["Vegan", "GlutenFree"],
-          greenscore: "37",
-          price: 2,
-          accessibility: true
-        },
-        {
-          id: 2,
-          name: "ABATTOIR VEGETAL",
-          address: "61 rue Ramey",
-          zipcode: "75018",
-          city: "Paris",
-          type: "Restaurant",
-          tags: ["Vegan", "GlutenFree"],
-          greenscore: "89",
-          price: 1,
-          accessibility: true
-        },
-        {
-          id: 3,
-          name: "LE MEZZE DU CHEF",
-          address: "61 rue Ramey",
-          zipcode: "75018",
-          city: "Paris",
-          type: "Restaurant",
-          tags: ["Vegan", "GlutenFree"],
-          greenscore: "89",
-          price: 3,
-          accessibility: false
-        },
-        {
-          id: 4,
-          name: "LE MEZZE DU CHEF",
-          address: "61 rue Ramey",
-          zipcode: "75018",
-          city: "Paris",
-          type: "Boutique",
-          tags: ["Vegan", "GlutenFree"],
-          greenscore: "19",
-          price: 2,
-          accessibility: true
-        }
-      ],
-      selectedShop: null
+      dataTable: null,
+      selectedShop: null,
+      showAddModal: false,
+      showEditModal: false,
+      showGreenscoreModal: false
     };
   },
   mounted() {
-    axios.get(`${window.config.api_root_url}/shops`).then(response =>
-      // eslint-disable-next-line no-console
-      console.log(response.data)
-    );
+    axios
+      .get(`${window.config.api_root_url}shops`)
+      .then(response => (this.dataTable = response.data));
   },
   methods: {
-    handleEdit(shop) {
+    handleEdit(index, shop) {
       this.selectedShop = shop;
-      // eslint-disable-next-line no-console
+      this.showEditModal = true;
+
       this.$refs.editPoiModal.open();
     },
-    handleDelete(index, row) {
-      console.log(index, row); // eslint-disable-line
+    handleDelete(shop) {
+      this.selectedShop = shop;
+      this.$refs.archivePoiModal.open();
     },
     addShop() {
+      this.showAddModal = true;
+      // eslint-disable-next-line no-console
       this.$refs.addPoiModal.open();
+    },
+    handleGreenscore() {
+      this.showGreenscoreModal = true;
+      // eslint-disable-next-line no-console
+      this.$refs.addGreenscoreModal.open();
+    },
+    archiveShop() {
+      // eslint-disable-next-line no-console
+      console.log("ok");
+      axios.delete(
+        `${window.config.api_root_url}shops/delete/${this.selectedShop._id}`
+      );
     }
   }
 };
