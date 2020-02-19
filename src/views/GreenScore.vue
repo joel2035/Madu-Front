@@ -12,7 +12,11 @@
       </el-tabs>
     </template>
     <template>
-      <el-table header-cell-class-name="header-cell" :data="tableData" style="width: 100%">
+      <el-table
+        header-cell-class-name="header-cell"
+        :data="tableData"
+        style="width: 100%"
+      >
         <el-table-column fixed label="Categorie">
           <template slot-scope="scope">
             <el-popover trigger="hover" placement="top">
@@ -40,8 +44,18 @@
         </el-table-column>
         <el-table-column label="Opérations">
           <template slot-scope="scope" size="mini">
-            <el-button class="btn" size="mini" type="default" @click="handleEdit(scope.row)">Éditer</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
+            <el-button
+              class="btn"
+              size="mini"
+              type="default"
+              @click="handleEdit(scope.row)"
+              >Éditer</el-button
+            >
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+            >
               <i class="el-icon-delete"></i>
             </el-button>
           </template>
