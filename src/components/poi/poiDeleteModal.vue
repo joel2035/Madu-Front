@@ -6,7 +6,7 @@
     append-to-body
     @close="showModal = false"
   >
-    Êtes-vous sûr(e) de vouloir supprimer {{ shop.name }} ?
+    Êtes-vous sûr(e) de vouloir supprimer {{ shop ? shop.name : "ce lieu" }} ?
     <span slot="footer">
       <el-button @click="showModal = false">Annuler</el-button>
       <el-button type="primary" @click="deleteShop()">Supprimer</el-button>
@@ -21,8 +21,7 @@ export default {
 
   props: {
     shop: {
-      type: Object,
-      required: true
+      type: Object
     }
   },
 

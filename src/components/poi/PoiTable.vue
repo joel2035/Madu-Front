@@ -33,7 +33,9 @@
         <el-table-column label="Greenscore" width="150">
           <template slot-scope="scope">
             <span v-if="scope.row.greenscore !== null">{{
-              scope.row.greenscore ? getGreenscore(scope.row.greenscore) : null
+              scope.row.greenscore
+                ? scope.row.greenscore.score.greenscore
+                : null
             }}</span>
           </template>
         </el-table-column>
@@ -67,7 +69,7 @@
               size="mini"
               type="success"
               @click="handleGreenscore(scope.row)"
-              v-if="!scope.row.greenscore"
+              v-if="scope.row.greenscore === null"
               >Ajouter un greenscore</el-button
             >
             <el-button
@@ -129,37 +131,13 @@ export default {
   },
   data() {
     return {
-      columns: [
-        {
-          prop: "name",
-          label: "Nom",
-          width: 180
-        },
-        {
-          prop: "description",
-          label: "Type"
-        },
-        {
-          prop: "tags",
-          label: "Tags"
-        },
-
-        {
-          prop: "greenscore",
-          label: "Greenscore"
-        },
-        {
-          prop: "address",
-          label: "Localisation",
-          width: 200
-        }
-      ],
       dataTable: null,
       selectedShop: null,
       showAddModal: false,
       showEditModal: false,
       showGreenscoreModal: false,
-      greenscoreShop: null
+      greenscoreShop: null,
+      test: ""
     };
   },
 
@@ -169,7 +147,9 @@ export default {
   mounted() {
     axios
       .get(`${window.config.api_root_url}shops`)
-      .then(response => (this.dataTable = response.data));
+      .then(response => (this.dataTable = response.data))
+      // eslint-disable-next-line no-console
+      .then(resp => console.log(resp.data));
   },
   methods: {
     handleEdit(index, shop) {
@@ -192,15 +172,6 @@ export default {
       this.showGreenscoreModal = true;
       // eslint-disable-next-line no-console
       this.$refs.addGreenscoreModal.open();
-    },
-
-    getGreenscore(greenscoreID) {
-      if (greenscoreID) {
-        axios
-          .get(`${window.config.api_root_url}greenscore/${greenscoreID}`)
-          // eslint-disable-next-line no-console
-          .then(resp => console.log(resp.data));
-      }
     }
   }
 };

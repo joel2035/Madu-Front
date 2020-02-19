@@ -40,6 +40,15 @@
             ></el-input-number>
           </el-form-item>
         </el-col>
+        <el-col :span="5">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="removeCriteria('food', index)"
+          >
+            <i class="el-icon-delete"></i>
+          </el-button>
+        </el-col>
       </el-row>
       <el-row>
         <el-button @click="addCriteria('food')">Ajouter critère</el-button>
@@ -79,6 +88,15 @@
             ></el-input-number>
           </el-form-item>
         </el-col>
+        <el-col :span="5">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="removeCriteria('social', index)"
+          >
+            <i class="el-icon-delete"></i>
+          </el-button>
+        </el-col>
       </el-row>
       <el-row>
         <el-button @click="addCriteria('social')">Ajouter critère</el-button>
@@ -117,6 +135,15 @@
               controls-position="right"
             ></el-input-number>
           </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="removeCriteria('material', index)"
+          >
+            <i class="el-icon-delete"></i>
+          </el-button>
         </el-col>
       </el-row>
       <el-row>
@@ -182,7 +209,7 @@ export default {
         this.formData
       );
       this.showModal = false;
-      this.$router.go();
+      //this.$router.go();
     },
 
     closeModal() {
@@ -191,6 +218,10 @@ export default {
 
     addCriteria(category) {
       this.formData[category].push({ criteria: "", note: "", coefficient: "" });
+    },
+
+    removeCriteria(category, id) {
+      this.formData[category].splice(id, 1);
     }
   }
 };
