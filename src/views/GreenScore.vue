@@ -1,8 +1,9 @@
 <template>
         <div class="companies">
+           
             <div class="view-header">
                 <h1 class="title">Gestion du Greenscore</h1>
-                <el-button type="primary">Ajouter un commençant</el-button>
+                <el-button type="primary"  @click="addShop()">Ajouter un commençant</el-button>
             </div>
         <template>
                 <el-tabs class="tab_1" v-model="activeName" @tab-click="handleClick">
@@ -13,13 +14,6 @@
                 </el-tabs>
         </template>    
             <template>
-                <el-tabs class="tab_2" v-model="activeName" @tab-click="handleClick">
-                <el-tab-pane  label="Niveau 1" name="first"></el-tab-pane>
-                <el-tab-pane  label="Niveau 2" name="second"></el-tab-pane>
-                <el-tab-pane  label="Niveau 3" name="third"></el-tab-pane>
-                </el-tabs>
-        </template>
-            <template>
                 
                 <el-table header-cell-class-name="header-cell"
                     :data="tableData"
@@ -27,12 +21,12 @@
                     <el-table-column
                         fixed
                         label="Categorie"
-                        width="147">
+                        width="180">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="top">
-                        <p>Nom: {{scope.row.categorie}}</p>
+                        <p class="categorie">Nom: {{scope.row.categorie}}</p>
                         <div slot="reference" class="name-wrapper">
-                            <el-tag size="medium">{{ scope.row.categorie }}</el-tag>
+                            <p class="categorie" size="medium">{{ scope.row.categorie }}</p>
                         </div>
                         </el-popover>
                     </template>
@@ -72,9 +66,10 @@
                         slot-scope="scope"
                         size="mini"
                         >
-                        <el-button class="btn"  
+                        <el-button class="btn" 
+                        size="mini" 
                         type="default"
-                        @click="handleEdit(scope.$index, scope.row)">Éditer</el-button>
+                        @click="handleEdit(scope.row)">Éditer</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -83,18 +78,29 @@
                     </el-table-column>
                 </el-table>
             </template>
+            <green-score-modal ref="editGreenScoreModal" :shop="selectedShop" isEdit />
+            <green-score-modal ref="addGreenScoreModal"/>
             </div>
+           
+            
     </template>
 
 <script>
+ import GreenScoreModal from "../components/molecules/GreenScoreModal";
+ import axios from "axios";
 export default {
-  components: {},
+
+  components: {
+     GreenScoreModal  
+  },
 
   props: {},
 
   data: function() {
     return {
+
         activeName: 'first',
+
         tableData: [
             {
                 categorie:'food',
@@ -134,24 +140,33 @@ export default {
                 etat_2:"56",
                
             }
-        ]
+        ],
+        selectedShop: null
     };
   },
 
   computed: {},
 
-  mounted: function() {},
+  mounted: function() {
+      axios.get(`${window.config.api_root_url}/shops`).then(response =>
+      // eslint-disable-next-line no-console
+      console.log(response.data));
+  },
 
   methods: {
-       handleEdit(index, row) {
-        console.log(index, row); // eslint-disable-line
+       handleEdit(shop) {
+        this.selectedShop = shop;
+        this.$refs.editGreenScoreModal.open()
       },
       handleDelete(index, row) {
         console.log(index, row); // eslint-disable-line 
       },
         handleClick(tab, event) {
         console.log(tab, event); // eslint-disable-line 
-      }
+      },
+      addShop() {
+      this.$refs.addGreenScoreModal.open();
+    }
   }
 };
 </script>
@@ -188,6 +203,7 @@ export default {
     }
 }
     
+    
        
     .tab_1{
         font-size:14px;
@@ -219,8 +235,14 @@ export default {
     .btn{
         color:#0077FF;
         border-color:#0077FF;
-        font-size:14px;
     }
-    
+    .categorie {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 15px;
+        color:#000000;
+        line-height: 18px;
+        text-transform:capitalize;
+    }
 }
 </style>
