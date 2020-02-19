@@ -8,7 +8,7 @@
             <el-input v-model="mail_pro" placeholder="Identifiant"></el-input>
           </el-form-item>
           <el-form-item label="Mot de passe">
-            <el-input v-model="password" placeholder="Mot de passe"></el-input>
+            <el-input type="password" v-model="password" placeholder="Mot de passe"></el-input>
           </el-form-item>
           <el-form-item>
             <button type="submit" @click="login" class="btn-submit">Se connecter</button>

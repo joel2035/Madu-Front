@@ -23,6 +23,14 @@ export default {
     Header,
     Sidebar
   },
+  created() {
+    let token = localStorage.getItem('token')
+    console.debug(token);  //eslint-disable-line
+    if (token !== undefined && token !== "" && token !== null) {
+      console.debug('logged'); //eslint-disable-line
+      this.$store.commit('AUTHENTICATE_USER')
+    }
+  },
   computed: {
     ...mapGetters([
       "isLoggedIn"

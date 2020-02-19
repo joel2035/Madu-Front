@@ -4,7 +4,7 @@ export default {
     return new Promise((resolve, reject) => {
       console.debug("login"); // eslint-disable-line
       commit("auth_request");
-      console.debug(user);// eslint-disable-line
+      console.debug(user); // eslint-disable-line
       axios({
         url: `${window.config.api_root_url}login/`,
         data: user,
@@ -12,11 +12,10 @@ export default {
       })
         .then(resp => {
           console.debug(resp); // eslint-disable-line
-          const token = resp.data.token;
-          const user = resp.data.user;
+          const token = resp.data.accessToken;
           localStorage.setItem("token", token);
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          commit("auth_success", token, user);
+          commit("auth_success", token);
           resolve(resp);
         })
         .catch(err => {
@@ -28,9 +27,15 @@ export default {
     });
   },
   fetchData(context, payload) {
-    axios.get(payload.url, payload.filters);
+    axios.get(
+      `${window.config.api_root_url}${payload.modelName}/`,
+      payload.filters
+    );
   },
-  postdata(context, payload) {
+  postData(context, payload) {
     axios.post(payload.url, payload.params);
-  }
+  },
+  // createData(context, payload) {
+
+  // }
 };
