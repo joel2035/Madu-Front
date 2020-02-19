@@ -8,14 +8,13 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data: function() {
     return {};
   },
-  method: {
-    logout() {
-      console.debug('log out'); // eslint-disable-line
-    }
+  methods: {
+    ...mapActions(["logout"])
   }
 };
 </script>

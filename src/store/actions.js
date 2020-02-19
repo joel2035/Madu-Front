@@ -26,15 +26,58 @@ export default {
         });
     });
   },
+  logout({ commit }) {
+    localStorage.setItem("token", "");
+    commit("LOGOUT");
+  },
   fetchData(context, payload) {
-    axios.get(
-      `${window.config.api_root_url}${payload.modelName}/`,
-      payload.filters
-    );
+    return new Promise((resolve, reject) => {
+      axios
+        .get(
+          `${window.config.api_root_url}${payload.modelName}/`,
+          payload.filters
+        )
+        .then(resp => {
+          resolve(resp);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
   postData(context, payload) {
-    axios.post(payload.url, payload.params);
+    return new Promise((resolve, reject) => {
+      let url = `${window.config.api_root_url}${payload.modelName}/`;
+      if (payload.is_update === true) {
+        url = `${url}update/${payload.objectId}`;
+      } else {
+        url = `${url}add`;
+      }
+      axios
+        .post(url, payload.data)
+        .then(resp => {
+          resolve(resp);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
+  patchData(context, payload) {
+    return new Promise((resolve, reject) => {
+      axios
+        .patch(
+          `${window.config.api_root_url}${payload.modelName}/update/${payload.objectId}`,
+          payload.data
+        )
+        .then(resp => {
+          resolve(resp);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
   // createData(context, payload) {
 
   // }

@@ -6,7 +6,10 @@
         >Ajouter une entreprise</el-button
       >
     </div>
-    <el-table :data="fakeData" header-cell-class-name="header-cell">
+    <div v-if="clients.length === 0" class="no-results">
+      Aucune entreprise n'existe, veuillez en créer une
+    </div>
+    <el-table v-else v-loading="loading" :data="clients" header-cell-class-name="header-cell">
       <el-table-column prop="name" label="Nom">
         <template slot-scope="scope">
           <div class="company-name">{{ scope.row.name }}</div>
@@ -51,27 +54,31 @@
       @successCallback="archiveClient"
     ></archive-modal>
     <map-modal :selectedClient="selectedClient"></map-modal>
-    <edit-client-modal ref="editModal" :client="selectedClient" :clientCoords="clientCoords"></edit-client-modal>
+    <client-modal ref="clientModal" :client="selectedClient"></client-modal>
   </div>
 </template>
 
 <script>
 import ArchiveModal from "../components/organisms/archiveModal.vue";
-import EditClientModal from "../components/organisms/editClientModal.vue";
+import ClientModal from "../components/organisms/editClientModal.vue";
 import openGeocoder from "node-open-geocoder";
+import MapModal from "../components/organisms/mapModal.vue"
 import {mapActions} from "vuex";
 
 // search
 export default {
   components: {
     ArchiveModal,
-    EditClientModal
+    ClientModal,
+    MapModal
   },
 
   props: {},
 
   data: function() {
     return {
+      loading: false,
+      clients: [],
       selectedClient: {},
       fakeData: [
         {
@@ -99,12 +106,21 @@ export default {
       'createData'
     ]),
     retrieveData() {
+      this.loading = true;
       this.fetchData({
         modelName: 'structures'
+      }).then((resp) => {
+        console.debug(resp.data); //eslint-disable-line
+        this.clients = resp.data;
+      }).catch((err) => {
+        console.error(err) //eslint-disable-line
+      }).finally(() => {
+        this.loading = false;
       });
     },
-    editClient() {
-      this.$refs.editModal.open();
+    editClient(client) {
+      this.selectedClient = client;
+      this.$refs.clientModal.open();
       console.debug("open edit modal"); // eslint-disable-line
     },
     openMapModal(client) {
@@ -128,6 +144,8 @@ export default {
       console.debug("open archive modal"); // eslint-disable-line
     },
     openCreationModal() {
+      this.selectedClient = {};
+      this.$refs.clientModal.open()
       console.debug("open creation modal"); // eslint-disable-line
     }
   }
@@ -145,6 +163,10 @@ export default {
       font-size: 21px;
       font-family: "Lato Bold";
     }
+  }
+  .no-results {
+    margin-top: 45px;
+    text-align: center;
   }
   .el-table {
     font-size: 15px;

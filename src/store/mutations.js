@@ -12,5 +12,9 @@ export default {
   },
   AUTHENTICATE_USER(state) {
     state.currentUser.authenticated = true;
+  },
+  LOGOUT(state) {
+    state.currentUser.authenticated = false;
+    state.token = "";
   }
 };
