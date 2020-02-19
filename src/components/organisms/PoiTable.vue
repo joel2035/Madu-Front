@@ -35,7 +35,7 @@
         <el-table-column label="Localisation">
           <template slot-scope="scope">
             <span>
-              {{ scope.row.address }}, {{ scope.row.zipcode }},
+              {{ scope.row.adress }}, {{ scope.row.zipcode }},
               {{ scope.row.city }}
             </span>
           </template>
@@ -61,7 +61,7 @@
             <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">
               <i class="el-icon-edit"></i>
             </el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">
               <i class="el-icon-delete"></i>
             </el-button>
           </template>
@@ -75,6 +75,11 @@
         :visible="showEditModal"
       />
       <poi-modal ref="addPoiModal" :visible="showAddModal" />
+      <archive-modal
+        :modelName="selectedShop ? selectedShop.name : 'ce lieu'"
+        ref="archivePoiModal"
+        @successCallback="archiveShop"
+      />
     </template>
   </div>
 </template>
@@ -96,10 +101,12 @@
 
 <script>
 import poiModal from "../organisms/poiModal";
+import archiveModal from "../organisms/archiveModal";
 import axios from "axios";
 export default {
   components: {
-    poiModal
+    poiModal,
+    archiveModal
   },
   data() {
     return {
@@ -146,13 +153,21 @@ export default {
 
       this.$refs.editPoiModal.open();
     },
-    handleDelete(index, row) {
-      console.log(index, row); // eslint-disable-line
+    handleDelete(shop) {
+      this.selectedShop = shop;
+      this.$refs.archivePoiModal.open();
     },
     addShop() {
       this.showAddModal = true;
       // eslint-disable-next-line no-console
       this.$refs.addPoiModal.open();
+    },
+    archiveShop() {
+      // eslint-disable-next-line no-console
+      console.log("ok");
+      axios.delete(
+        `${window.config.api_root_url}shops/delete/${this.selectedShop._id}`
+      );
     }
   }
 };

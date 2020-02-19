@@ -160,7 +160,11 @@ export default {
 
     onClickIcon() {
       // eslint-disable-next-line no-console
-      this.formData.price += 1;
+      if (this.formData.price <= 3) {
+        this.formData.price += 1;
+      } else {
+        this.formData -= 1;
+      }
     },
     addShop() {
       axios.post(`${window.config.api_root_url}shops/add`, this.formData);
