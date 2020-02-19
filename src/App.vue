@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <login v-if="!UserIsLogged"></login>
+    <login v-if="!true"></login>
     <div v-else>
       <Header></Header>
       <Sidebar></Sidebar>
