@@ -6,7 +6,7 @@
     append-to-body
     @close="showModal = false"
   >
-    Êtes-vous sûr(e) de vouloir supprimer {{ shop ? shop.name : "ce lieu" }} ?
+    Êtes-vous sûr(e) de vouloir supprimer {{ shop.name ? shop.name : "ce lieu" }} ?
     <span slot="footer">
       <el-button @click="showModal = false">Annuler</el-button>
       <el-button type="primary" @click="deleteShop()">Supprimer</el-button>
