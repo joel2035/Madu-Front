@@ -99,8 +99,11 @@
 
 <script>
 import axios from "axios";
+import PoiGreenscoreModal from "../poi/poiGreenscoreModal";
 export default {
-  components: {},
+  components: {
+    PoiGreenscoreModal
+  },
 
   props: {
     shop: {

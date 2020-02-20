@@ -134,7 +134,7 @@
       </el-row>
     </el-form>
     <el-row style="margin: 2rem 0">
-      <el-button type="primary" @click="submitGreenscore()">Enregistrer</el-button>
+      <el-button type="primary" @click="isEdit ? editGreenscore() : submitGreenscore()">Enregistrer</el-button>
       <el-button @click="showModal = false">Annuler</el-button>
     </el-row>
   </el-dialog>
@@ -142,6 +142,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   components: {},
 
@@ -166,8 +167,7 @@ export default {
         social: [],
         material: []
       },
-
-      showModal: this.visible,
+      showModal: false,
       foodSuggestions: null
     };
   },
@@ -175,20 +175,6 @@ export default {
   computed: {},
 
   mounted: function() {
-    // eslint-disable-next-line no-console
-    console.log(this.shop);
-    this.isEdit
-      ? axios
-          .get(
-            `${window.config.api_root_url}greenscore/${this.shop.greenscore}`
-          )
-          .then(resp => {
-            this.formData = resp.data[0];
-          })
-      : this.formData;
-  },
-
-  updated: function() {
     this.isEdit
       ? axios
           .get(
@@ -233,6 +219,13 @@ export default {
           // eslint-disable-next-line no-console
           console.log(resp.data)
         );
+    },
+    editGreenscore() {
+      axios.patch(
+        `${window.config.api_root_url}greenscore/update/${this.shop.greenscore}`,
+        this.formData
+      );
+      this.showModal = false;
     }
   }
 };
