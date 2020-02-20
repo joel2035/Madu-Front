@@ -11,7 +11,7 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item label="ADDRESSE" class="label-style">
+          <el-form-item label="ADRESSE" class="label-style">
             <el-input v-model="formData.adress"></el-input>
           </el-form-item>
         </el-col>
