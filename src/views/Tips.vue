@@ -12,6 +12,7 @@
             <template>
                 <el-table 
                     header-cell-class-name="header-cell"
+                    class="el-table"
                     :data="tableData"
                     style="width: 100%">
                     <el-table-column
@@ -122,9 +123,11 @@ export default {
   computed: {},
 
   mounted: function() {
-      axios.get(`${window.config.api_root_url}/shops`).then(response =>
+      axios.get(`${window.config.api_root_url}/shops`)
+      .then(response =>
       // eslint-disable-next-line no-console
-      console.log(response.data));
+      console.log(response.data)
+      );
   },
 
   methods: {
@@ -163,19 +166,20 @@ export default {
         border-color: #409EFF;
         border-top-left-radius:0;
         border-bottom-left-radius:0;
-    }
+    } 
   }
+
+  
   .el-table {
     font-size: 14px;
     color: #77848f;
     background-color: transparent;
+    margin-top:20px;
     &::before,
     .el-table__fixed-right::before,
     .el-table__fixed::before {
       display: none;
-   
     }
-    
     th,
     tr {
       background-color: transparent;
