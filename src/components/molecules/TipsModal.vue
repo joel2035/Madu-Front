@@ -60,7 +60,7 @@ export default {
   components: {},
 
   props: {
-    shop: {
+    tip: {
       type: Object
     },
     isEdit: {
