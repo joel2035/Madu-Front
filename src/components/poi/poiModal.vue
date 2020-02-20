@@ -1,10 +1,5 @@
 <template>
-  <el-dialog
-    :visible.sync="showModal"
-    append-to-body
-    width="70%"
-    @close="closeModal"
-  >
+  <el-dialog :visible.sync="showModal" append-to-body width="70%" @close="closeModal">
     <h2>{{ isEdit ? "Modifier" : "Ajouter" }} un commerçant</h2>
     <el-form :model="formData">
       <el-row :gutter="20">
@@ -33,10 +28,7 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="24">
-          <el-form-item
-            label="TAGS (séparés par des virgules)"
-            class="label-style"
-          >
+          <el-form-item label="TAGS (séparés par des virgules)" class="label-style">
             <el-input v-model="formData.tags"></el-input>
           </el-form-item>
         </el-col>
@@ -44,10 +36,7 @@
       <el-row :gutter="20">
         <el-col :span="6" style="display: flex; flex-direction: column;">
           <el-form-item label="TYPE" class="label-style">
-            <el-select
-              v-model="formData.type"
-              placeholder="Selectionner un type"
-            >
+            <el-select v-model="formData.type" placeholder="Selectionner un type">
               <el-option label="Resturant" value="restaurant"></el-option>
               <el-option label="Boutique" value="shop"></el-option>
               <el-option label="Activité" value="activity"></el-option>
@@ -56,12 +45,8 @@
         </el-col>
         <el-col :span="6">
           <el-form-item label="ACCES AU FAUTEUIL ROULANT" class="label-style">
-            <el-radio v-model="formData.accessibility" label="true" border
-              >Oui</el-radio
-            >
-            <el-radio v-model="formData.accessibility" label="false" border
-              >Non</el-radio
-            >
+            <el-radio v-model="formData.accessibility" label="true" border>Oui</el-radio>
+            <el-radio v-model="formData.accessibility" label="false" border>Non</el-radio>
           </el-form-item>
         </el-col>
       </el-row>
@@ -95,13 +80,20 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <el-row style="margin: 2rem 0" v-if="this.shop.greenscore">
+        <el-button type="success" @click="editGreenscore()">Modifier Greenscore</el-button>
+      </el-row>
       <el-row>
-        <el-button type="primary" @click="isEdit ? edit() : addShop()"
-          >Enregistrer</el-button
-        >
+        <el-button type="primary" @click="isEdit ? edit() : addShop()">Enregistrer</el-button>
         <el-button @click="showModal = false">Annuler</el-button>
       </el-row>
     </el-form>
+    <poi-greenscore-modal
+      :shop="shop"
+      :visible="showGreenscoreEdit"
+      ref="editGreenscoreModal"
+      isEdit
+    />
   </el-dialog>
 </template>
 
@@ -137,7 +129,8 @@ export default {
         description: ""
       },
 
-      showModal: this.visible
+      showModal: this.visible,
+      showGreenscoreEdit: false
     };
   },
 
@@ -154,8 +147,8 @@ export default {
 
   methods: {
     open() {
-      // eslint-disable-next-line no-console
       this.showModal = true;
+      // eslint-disable-next-line no-console
     },
     successCallback() {
       this.$emit("successCallback");
@@ -184,12 +177,17 @@ export default {
         ? this.formData.tags.split(", ")
         : null;
       axios.post(`${window.config.api_root_url}shops/add`, this.formData);
+      // eslint-disable-next-line no-console
+      console.log(this.formData);
 
       this.showModal = false;
-      this.$router.go();
     },
     closeModal() {
       this.showModal = false;
+    },
+    editGreenscore() {
+      this.showGreenscoreEdit = true;
+      this.$refs.editGreenscoreModal.open();
     }
   }
 };

@@ -2,9 +2,7 @@
   <div class="container">
     <div class="button-container">
       <el-row justify="end" style="margin-bottom: 2rem">
-        <el-button class="btn" type="primary" @click="addShop()"
-          >Ajouter un commerçant</el-button
-        >
+        <el-button class="btn" type="primary" @click="addShop()">Ajouter un commerçant</el-button>
       </el-row>
     </div>
     <template>
@@ -26,8 +24,7 @@
               style="margin-right: 10px"
               v-for="(tag, index) in scope.row.tags"
               :key="index"
-              >#{{ tag }}</span
-            >
+            >#{{ tag }}</span>
           </template>
         </el-table-column>
         <el-table-column label="Greenscore" width="150">
@@ -65,21 +62,12 @@
               size="mini"
               type="success"
               @click="handleGreenscore(scope.row)"
-              v-if="scope.row.greenscore === null"
-              >Ajouter un greenscore</el-button
-            >
-            <el-button
-              size="mini"
-              type="primary"
-              @click="handleEdit(scope.$index, scope.row)"
-            >
+              v-if="!scope.row.greenscore"
+            >Ajouter un Greenscore</el-button>
+            <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">
               <i class="el-icon-edit"></i>
             </el-button>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.row)"
-            >
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">
               <i class="el-icon-delete"></i>
             </el-button>
           </template>
@@ -99,6 +87,8 @@
   </div>
 </template>
 
+<!-- STYLE -->
+
 <style lang="scss" scoped>
 .button-container {
   display: flex;
@@ -113,6 +103,8 @@
   color: rgba(192, 197, 210, 0.3);
 }
 </style>
+
+<!-- SCRIPT -->
 
 <script>
 import poiGreenscoreModal from "../poi/poiGreenscoreModal";
@@ -139,12 +131,14 @@ export default {
     };
   },
 
-  computed: {},
   mounted() {
     axios
       .get(`${window.config.api_root_url}shops`)
       .then(response => (this.dataTable = response.data));
   },
+
+  // METHODS
+
   methods: {
     handleEdit(index, shop) {
       this.selectedShop = shop;

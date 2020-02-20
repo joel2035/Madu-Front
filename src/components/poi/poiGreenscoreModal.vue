@@ -1,29 +1,15 @@
 <template>
   <!-- GREENSCORE MODAL -->
-  <el-dialog
-    width="80%"
-    title="GREENSCORE"
-    :visible.sync="showModal"
-    append-to-body
-  >
+  <el-dialog width="80%" title="GREENSCORE" :visible.sync="showModal" append-to-body>
     <h2 style="margin: 3rem 0 1.5rem 0">
-      Food <i class="el-icon-fork-spoon" style="margin-left: 0.5rem"></i>
+      Food
+      <i class="el-icon-fork-spoon" style="margin-left: 0.5rem"></i>
     </h2>
     <el-form v-model="formData['food']">
-      <el-row
-        :gutter="40"
-        v-for="(foodCriteria, index) in formData.food"
-        :key="index"
-      >
+      <el-row :gutter="40" v-for="(foodCriteria, index) in formData.food" :key="index">
         <el-col :span="8">
           <el-form-item label="Nom du critère" class="label-style">
-            <el-autocomplete
-              class="inline-input"
-              v-model="formData.food[index].criteria"
-              :fetch-suggestions="getSuggestions('food')"
-              placeholder="Entrez quelque chose"
-              @select="handleSelect"
-            ></el-autocomplete>
+            <el-input v-model="formData.food[index].criteria" placeholder="Entrez quelque chose" />
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -48,11 +34,7 @@
         </el-col>
         <el-col :span="2">
           <div>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="removeCriteria('food', index)"
-            >
+            <el-button size="mini" type="danger" @click="removeCriteria('food', index)">
               <i class="el-icon-delete"></i>
             </el-button>
           </div>
@@ -63,23 +45,14 @@
       </el-row>
     </el-form>
     <h2 style="margin: 3rem 0 1.5rem 0">
-      Social <i class="el-icon-user" style="margin-left: 0.5rem"></i>
+      Social
+      <i class="el-icon-user" style="margin-left: 0.5rem"></i>
     </h2>
     <el-form v-model="formData['social']">
-      <el-row
-        :gutter="20"
-        v-for="(socialCriteria, index) in formData.social"
-        :key="index"
-      >
+      <el-row :gutter="20" v-for="(socialCriteria, index) in formData.social" :key="index">
         <el-col :span="8">
           <el-form-item label="Nom du critère" class="label-style">
-            <el-autocomplete
-              class="inline-input"
-              v-model="formData.social[index].criteria"
-              :fetch-suggestions="getSuggestions('social')"
-              placeholder="Entrez quelque chose"
-              @select="handleSelect"
-            ></el-autocomplete>
+            <el-input v-model="formData.social[index].criteria" placeholder="Entrez quelque chose" />
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -104,11 +77,7 @@
         </el-col>
         <el-col :span="2">
           <div>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="removeCriteria('social', index)"
-            >
+            <el-button size="mini" type="danger" @click="removeCriteria('social', index)">
               <i class="el-icon-delete"></i>
             </el-button>
           </div>
@@ -119,23 +88,17 @@
       </el-row>
     </el-form>
     <h2 style="margin: 3rem 0 1.5rem 0">
-      Matériel <i class="el-icon-box" style="margin-left: 0.5rem"></i>
+      Matériel
+      <i class="el-icon-box" style="margin-left: 0.5rem"></i>
     </h2>
     <el-form v-model="formData['material']">
-      <el-row
-        :gutter="20"
-        v-for="(materialCriteria, index) in formData.material"
-        :key="index"
-      >
+      <el-row :gutter="20" v-for="(materialCriteria, index) in formData.material" :key="index">
         <el-col :span="8">
           <el-form-item label="Nom du critère" class="label-style">
-            <el-autocomplete
-              class="inline-input"
+            <el-input
               v-model="formData.material[index].criteria"
-              :fetch-suggestions="getSuggestions('material')"
               placeholder="Entrez quelque chose"
-              @select="handleSelect"
-            ></el-autocomplete>
+            />
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -160,11 +123,7 @@
         </el-col>
         <el-col :span="2">
           <div style="margin: 2.5rem 0">
-            <el-button
-              size="mini"
-              type="danger"
-              @click="removeCriteria('material', index)"
-            >
+            <el-button size="mini" type="danger" @click="removeCriteria('material', index)">
               <i class="el-icon-delete"></i>
             </el-button>
           </div>
@@ -175,9 +134,7 @@
       </el-row>
     </el-form>
     <el-row style="margin: 2rem 0">
-      <el-button type="primary" @click="submitGreenscore()"
-        >Enregistrer</el-button
-      >
+      <el-button type="primary" @click="submitGreenscore()">Enregistrer</el-button>
       <el-button @click="showModal = false">Annuler</el-button>
     </el-row>
   </el-dialog>
@@ -204,6 +161,7 @@ export default {
   data: function() {
     return {
       formData: {
+        id: "",
         food: [{ criteria: "", note: "", coefficient: "" }],
         social: [],
         material: []
@@ -216,15 +174,34 @@ export default {
 
   computed: {},
 
-  mounted: function() {},
+  mounted: function() {
+    // eslint-disable-next-line no-console
+    console.log(this.shop);
+    this.isEdit
+      ? axios
+          .get(
+            `${window.config.api_root_url}greenscore/${this.shop.greenscore}`
+          )
+          .then(resp => {
+            this.formData = resp.data[0];
+          })
+      : this.formData;
+  },
 
   updated: function() {
-    this.isEdit ? (this.formData = this.shop) : this.formData;
+    this.isEdit
+      ? axios
+          .get(
+            `${window.config.api_root_url}greenscore/${this.shop.greenscore}`
+          )
+          .then(resp => {
+            this.formData = resp.data[0];
+          })
+      : this.formData;
   },
 
   methods: {
     open() {
-      // eslint-disable-next-line no-console
       this.showModal = true;
     },
 

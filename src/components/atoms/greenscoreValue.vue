@@ -1,5 +1,5 @@
 <template>
-  <span>{{ value }}%</span>
+  <span v-if="value">{{ value }}%</span>
 </template>
 
 <script>
