@@ -40,4 +40,3 @@ let app = new Vue({
 window.app = app;
 
 app.$router.push({ name: "home" });
-
