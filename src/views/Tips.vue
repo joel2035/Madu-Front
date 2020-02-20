@@ -1,12 +1,12 @@
 <template>
   <div class="companies">
     <div class="view-header">
-      <h1 class="title">Gestion des tips</h1>
+      <h1 class="title">Gestion des récompenses</h1>
       <div style="margin-top: 15px;">
         <el-input type="text" class="searchInput" placeholder="Recherche ..." v-model="input3">
           <el-button class="searchIcon" slot="append" icon="el-icon-search"></el-button>
         </el-input>
-        <el-button type="primary" @click="addTip()">Ajouter un commençant</el-button>
+        <el-button type="primary" @click="addTip()">Ajouter une récompense</el-button>
       </div>
     </div>
     <template>
