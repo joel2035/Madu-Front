@@ -6,14 +6,14 @@
     @close="showModal = false"
   class="yep" >
     <h2 class="title">{{ isEdit ? "Modifier" : "Ajouter" }} un tips </h2>
-    <el-form   :model="formData">
+    <el-form   :model="tipData">
       <el-row
         :gutter="20">
         <el-col :span="8">
         </el-col>
          <el-col :span="8">
           <el-form-item class="text" label="Nom du critère">
-            <el-input v-model="formData.name"></el-input>
+            <el-input v-model="tipData.name"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -26,7 +26,7 @@
                 <el-input class="el-input"
                 type="textarea"
                 style= "width:600px"
-                v-model="formData.desc"></el-input>
+                v-model="tipData.description"></el-input>
             </el-form-item>
         </el-col>
       </el-row>
@@ -48,7 +48,7 @@
             justify="center"
           >
             <el-button @click="showModal = false">Annuler</el-button>
-            <el-button type="primary">Enregister</el-button>
+            <el-button @click="isEdit ? edit() : addTip()" type="primary">Enregister</el-button>
         </el-row>
       </el-form-item>
     </el-form>
@@ -56,8 +56,10 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   components: {},
+
 
   props: {
     tip: {
@@ -68,21 +70,48 @@ export default {
       default: false
     }
   },
+  mounted: function() {
+    this.isEdit ? (this.tipData = this.tip) : this.tipData;
+  },
+  updated: function() {
+    this.isEdit ? (this.tipData = this.tip) : this.tipData;
+  },
+
 
   data: function() {
     return {
       num:1,  
-      formData: {
-        name: "",
-        desc:""
+      tipData: {
+            name:"",
+            type: "",
+            description: "",
+            active: true,
+            cagnotte_amount: 100,
+            video_link: ""
       },
-      showModal: false
+       showModal: this.visible,
     };
   },
   methods: {
     open() {
       this.showModal = true;
     },
+    edit() {
+      axios.patch(
+        `${window.config.api_root_url}rewards/update/${this.reward._id}`,
+        this.tipData
+      );
+      this.showModal = false;
+      this.$router.go();
+    },
+    addTip() {
+      axios.post(`${window.config.api_root_url}rewards/add`, this.tipData);
+      this.showModal = false;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+
   }
 };
 </script>

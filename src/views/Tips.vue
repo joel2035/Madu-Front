@@ -13,15 +13,15 @@
       <el-table
         header-cell-class-name="header-cell"
         class="el-table"
-        :data="tableData"
+        :data="tipData"
         style="width: 100%"
       >
         <el-table-column fixed label="Nom">
           <template slot-scope="scope">
             <el-popover trigger="hover" placement="top">
-              <p class="categorie">Nom: {{ scope.row.categorie }}</p>
+              <p class="categorie">Nom: {{ scope.row.name }}</p>
               <div slot="reference" class="name-wrapper">
-                <p class="categorie" size="medium">{{ scope.row.categorie }}</p>
+                <p class="categorie" size="medium">{{ scope.row.name }}</p>
               </div>
             </el-popover>
           </template>
@@ -40,7 +40,7 @@
         <el-table-column label="Opérations">
           <template slot-scope="scope" size="mini">
             <el-button class="btn" size="mini" type="default" @click="handleEdit(scope.row)">Éditer</el-button>
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row)">
               <i class="el-icon-delete"></i>
             </el-button>
           </template>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import axios from "axios"
 import TipsModal from "../components/molecules/TipsModal";
 export default {
   components: {
@@ -67,48 +68,35 @@ export default {
       activeName: "first",
       url:
         "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-      tableData: [
-        {
-          categorie: "Tips 1",
-          description: "Lorem ipsum dolor sit amet "
-        },
-        {
-          categorie: "Tips 2",
-          description: "Lorem ipsum dolor sit amet "
-        },
-        {
-          categorie: "Tips 3",
-          description: "Lorem ipsum dolor sit amet "
-        },
-        {
-          categorie: "Tips 4",
-          description: "Lorem ipsum dolor sit amet "
-        },
-
-        {
-          categorie: "Tips 5",
-          description: "Lorem ipsum dolor sit amet "
-        },
-        {
-          categorie: "Tips 6",
-          description:
-            "Suspendisse condimentum malesuada pulvinar. Integer sit amet ante sit amet tortor vehicula molestie."
-        }
-      ],
-      selectedTip: null
+      tipData:[],
+      selectedTip: null,
+      showAddModal: false,
+      showEditModal: false,
     };
   },
   computed: {},
-  mounted: function() {},
+  mounted: function() {
+      axios
+      .get(`${window.config.api_root_url}rewards`)
+       // eslint-disable-next-line no-console
+      .then(response => (console.log(response.data)
+      )(this.tipData = response.data));
+  },
 
   methods: {
     handleEdit(tip) {
       this.selectedTip = tip;
+      this.showEditModal = true;
       this.$refs.editTipsModal.open();
+    },
+    handleDelete(tip) {
+      this.selectedTip = tip;
+      this.$refs.deleteTipModal.open();
     },
 
     addTip() {
-      this.$refs.addTipsModal.open();
+        this.showAddModal = true;
+        this.$refs.addTipsModal.open();
     }
   }
 };
