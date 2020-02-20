@@ -98,7 +98,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .el-dialog__body {
         .title {
         font-style: normal;
@@ -113,6 +113,7 @@ export default {
          width: 30%;
          display:flex;
      }
+    
     .text{
         font-style: normal;
         font-weight: normal;
@@ -130,6 +131,24 @@ export default {
         border-color:#0077FF;
     }
     }
+    .el-upload-list--picture .el-upload-list__item {
+    overflow: hidden;
+    z-index: 0;
+    background-color: #fff;
+    border: 1px solid #c0ccda;
+    border-radius: 6px;
+    width:180px;
+    height:180px !important;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 10px 10px 10px 90px;
+    height: 92px;
+}
+.el-upload-list--picture .el-upload-list__item-thumbnail {
+    width:100%!important;
+    height:auto !important;
+}
     .valid{
         margin-top:40px;
     }

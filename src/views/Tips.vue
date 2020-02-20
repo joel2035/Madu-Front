@@ -112,16 +112,13 @@ export default {
             },
              {
                 categorie:'Tips 6',
-                description:"Suspendisse condimentum malesuada pulvinar. Integer sit amet ante sit amet tortor vehicula molestie."
-               
+                description:"Suspendisse condimentum malesuada pulvinar. Integer sit amet ante sit amet tortor vehicula molestie." 
             }
         ],
         selectedShop: null
     };
   },
-
   computed: {},
-
   mounted: function() {
       axios.get(`${window.config.api_root_url}/shops`)
       .then(response =>
@@ -168,8 +165,6 @@ export default {
         border-bottom-left-radius:0;
     } 
   }
-
-  
   .el-table {
     font-size: 14px;
     color: #77848f;
