@@ -80,7 +80,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row style="margin: 2rem 0" v-if="this.shop.greenscore">
+      <el-row style="margin: 2rem 0" v-if="this.shop && this.shop.greenscore">
         <el-button type="success" @click="editGreenscore()">Modifier Greenscore</el-button>
       </el-row>
       <el-row>

@@ -1,6 +1,6 @@
 <template>
   <!-- GREENSCORE MODAL -->
-  <el-dialog width="80%" title="GREENSCORE" :visible.sync="showModal" append-to-body>
+  <el-dialog width="40%" title="GREENSCORE" :visible.sync="showModal" append-to-body>
     <h2 style="margin: 3rem 0 1.5rem 0">
       Food
       <i class="el-icon-fork-spoon" style="margin-left: 0.5rem"></i>
@@ -33,7 +33,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="2">
-          <div>
+          <div style="margin: 2.5rem 0">
             <el-button size="mini" type="danger" @click="removeCriteria('food', index)">
               <i class="el-icon-delete"></i>
             </el-button>
