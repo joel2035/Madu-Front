@@ -32,11 +32,7 @@
         </el-table-column>
         <el-table-column label="Greenscore" width="150">
           <template slot-scope="scope">
-            <span v-if="scope.row.greenscore !== null">{{
-              scope.row.greenscore
-                ? scope.row.greenscore.score.greenscore
-                : null
-            }}</span>
+            <greenscore-value :greenscoreId="scope.row.greenscore" />
           </template>
         </el-table-column>
         <el-table-column label="Localisation" width="300">
@@ -122,12 +118,14 @@
 import poiGreenscoreModal from "../poi/poiGreenscoreModal";
 import poiModal from "../poi/poiModal";
 import poiDeleteModal from "../poi/poiDeleteModal";
+import greenscoreValue from "../atoms/greenscoreValue";
 import axios from "axios";
 export default {
   components: {
     poiModal,
     poiDeleteModal,
-    poiGreenscoreModal
+    poiGreenscoreModal,
+    greenscoreValue
   },
   data() {
     return {
@@ -142,14 +140,10 @@ export default {
   },
 
   computed: {},
-
-  updated() {},
   mounted() {
     axios
       .get(`${window.config.api_root_url}shops`)
-      .then(response => (this.dataTable = response.data))
-      // eslint-disable-next-line no-console
-      .then(resp => console.log(resp.data));
+      .then(response => (this.dataTable = response.data));
   },
   methods: {
     handleEdit(index, shop) {
@@ -172,6 +166,13 @@ export default {
       this.showGreenscoreModal = true;
       // eslint-disable-next-line no-console
       this.$refs.addGreenscoreModal.open();
+    },
+    getGreenscore(greenscoreId) {
+      axios
+        .get(`${window.config.api_root_url}greenscore/${greenscoreId}`)
+        .then(resp => {
+          resp.data[0].score.greenscore;
+        });
     }
   }
 };

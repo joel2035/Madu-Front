@@ -1,7 +1,7 @@
 <template>
   <!-- GREENSCORE MODAL -->
   <el-dialog
-    width="50%"
+    width="80%"
     title="GREENSCORE"
     :visible.sync="showModal"
     append-to-body
@@ -15,12 +15,18 @@
         v-for="(foodCriteria, index) in formData.food"
         :key="index"
       >
-        <el-col :span="12">
+        <el-col :span="8">
           <el-form-item label="Nom du critère" class="label-style">
-            <el-input v-model="formData.food[index].criteria"></el-input>
+            <el-autocomplete
+              class="inline-input"
+              v-model="formData.food[index].criteria"
+              :fetch-suggestions="getSuggestions('food')"
+              placeholder="Entrez quelque chose"
+              @select="handleSelect"
+            ></el-autocomplete>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="6">
           <el-form-item label="Note" class="label-style">
             <el-input-number
               v-model="formData.food[index].note"
@@ -30,7 +36,7 @@
             ></el-input-number>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="6">
           <el-form-item label="Pondération" class="label-style">
             <el-input-number
               v-model="formData.food[index].coefficient"
@@ -40,14 +46,16 @@
             ></el-input-number>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-button
-            size="mini"
-            type="danger"
-            @click="removeCriteria('food', index)"
-          >
-            <i class="el-icon-delete"></i>
-          </el-button>
+        <el-col :span="2">
+          <div>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="removeCriteria('food', index)"
+            >
+              <i class="el-icon-delete"></i>
+            </el-button>
+          </div>
         </el-col>
       </el-row>
       <el-row>
@@ -63,9 +71,15 @@
         v-for="(socialCriteria, index) in formData.social"
         :key="index"
       >
-        <el-col :span="12">
+        <el-col :span="8">
           <el-form-item label="Nom du critère" class="label-style">
-            <el-input v-model="formData.social[index].criteria"></el-input>
+            <el-autocomplete
+              class="inline-input"
+              v-model="formData.social[index].criteria"
+              :fetch-suggestions="getSuggestions('social')"
+              placeholder="Entrez quelque chose"
+              @select="handleSelect"
+            ></el-autocomplete>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -88,14 +102,16 @@
             ></el-input-number>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-button
-            size="mini"
-            type="danger"
-            @click="removeCriteria('social', index)"
-          >
-            <i class="el-icon-delete"></i>
-          </el-button>
+        <el-col :span="2">
+          <div>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="removeCriteria('social', index)"
+            >
+              <i class="el-icon-delete"></i>
+            </el-button>
+          </div>
         </el-col>
       </el-row>
       <el-row>
@@ -111,9 +127,15 @@
         v-for="(materialCriteria, index) in formData.material"
         :key="index"
       >
-        <el-col :span="12">
+        <el-col :span="8">
           <el-form-item label="Nom du critère" class="label-style">
-            <el-input v-model="formData.material[index].criteria"></el-input>
+            <el-autocomplete
+              class="inline-input"
+              v-model="formData.material[index].criteria"
+              :fetch-suggestions="getSuggestions('material')"
+              placeholder="Entrez quelque chose"
+              @select="handleSelect"
+            ></el-autocomplete>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -136,14 +158,16 @@
             ></el-input-number>
           </el-form-item>
         </el-col>
-        <el-col :span="5">
-          <el-button
-            size="mini"
-            type="danger"
-            @click="removeCriteria('material', index)"
-          >
-            <i class="el-icon-delete"></i>
-          </el-button>
+        <el-col :span="2">
+          <div style="margin: 2.5rem 0">
+            <el-button
+              size="mini"
+              type="danger"
+              @click="removeCriteria('material', index)"
+            >
+              <i class="el-icon-delete"></i>
+            </el-button>
+          </div>
         </el-col>
       </el-row>
       <el-row>
@@ -185,7 +209,8 @@ export default {
         material: []
       },
 
-      showModal: this.visible
+      showModal: this.visible,
+      foodSuggestions: null
     };
   },
 
@@ -222,6 +247,15 @@ export default {
 
     removeCriteria(category, id) {
       this.formData[category].splice(id, 1);
+    },
+
+    getSuggestions(category) {
+      axios
+        .get(`${window.config.api_root_url}greenscore/shops/${category}`)
+        .then(resp =>
+          // eslint-disable-next-line no-console
+          console.log(resp.data)
+        );
     }
   }
 };
