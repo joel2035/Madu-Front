@@ -21,7 +21,8 @@ export default {
 
   props: {
     shop: {
-      type: Object
+      type: Object,
+      default: () => {return {}}
     }
   },
 
