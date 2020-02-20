@@ -3,7 +3,7 @@
               <div class="view-header">
                 <h1 class="title">Gestion des tips</h1>
                 <div style="margin-top: 15px;">
-                    <el-input class="searchInput" placeholder="Recherche ..." v-model="input3">
+                    <el-input type="text" class="searchInput" placeholder="Recherche ..." v-model="input3">
                     <el-button class="searchIcon" slot="append" icon="el-icon-search"></el-button>
                     </el-input>
                       <el-button type="primary"  @click="addShop()">Ajouter un commençant</el-button>
@@ -84,7 +84,7 @@ export default {
 
   data: function() {
     return {
-
+        input3:'',
         activeName: 'first',
          url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
         tableData: [
