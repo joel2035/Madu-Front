@@ -6,7 +6,7 @@
                     <el-input type="text" class="searchInput" placeholder="Recherche ..." v-model="input3">
                     <el-button class="searchIcon" slot="append" icon="el-icon-search"></el-button>
                     </el-input>
-                      <el-button type="primary"  @click="addShop()">Ajouter un commençant</el-button>
+                      <el-button type="primary"  @click="addTip()">Ajouter un commençant</el-button>
                 </div>
             </div>
             <template>
@@ -67,7 +67,7 @@
                     </el-table-column>
                 </el-table>
             </template>
-            <tips-modal ref="editTipsModal" :shop="selectedShop" isEdit />
+            <tips-modal ref="editTipsModal" :tip="selectedTip" isEdit />
             <tips-modal ref="addTipsModal"/>
             </div>
       </template>
@@ -112,28 +112,23 @@ export default {
             },
              {
                 categorie:'Tips 6',
-                description:"Suspendisse condimentum malesuada pulvinar. Integer sit amet ante sit amet tortor vehicula molestie." 
+                description:"Suspendisse condimentum malesuada pulvinar. Integer sit amet ante sit amet tortor vehicula molestie."
+ 
             }
         ],
-        selectedShop: null
+        selectedTip: null
     };
   },
   computed: {},
-  mounted: function() {
-      axios.get(`${window.config.api_root_url}/shops`)
-      .then(response =>
-      // eslint-disable-next-line no-console
-      console.log(response.data)
-      );
-  },
+  mounted: function() {},
 
   methods: {
-       handleEdit(shop) {
-        this.selectedShop = shop;
+       handleEdit(tip) {
+        this.selectedTip = tip;
         this.$refs.editTipsModal.open()
       },
 
-      addShop() {
+      addTip() {
       this.$refs.addTipsModal.open();
     }
   }

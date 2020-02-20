@@ -79,21 +79,10 @@ export default {
       showModal: false
     };
   },
-
-  computed: {},
-
-  mounted: function() {},
-
   methods: {
     open() {
       this.showModal = true;
     },
-    successCallback() {
-      this.$emit("successCallback");
-    },
-    edit() {
-      this.$emit("edited");
-    }
   }
 };
 </script>
