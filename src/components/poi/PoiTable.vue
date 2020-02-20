@@ -9,12 +9,12 @@
     </div>
     <template>
       <el-table :data="dataTable" style="width: 100%">
-        <el-table-column label="Nom">
+        <el-table-column label="Nom" sortable>
           <template slot-scope="scope">
             <b>{{ scope.row.name }}</b>
           </template>
         </el-table-column>
-        <el-table-column label="Type" width="180">
+        <el-table-column label="Type" width="180" sortable>
           <el-progress type="circle" :percentage="25"></el-progress>
           <template slot-scope="scope">
             <span style="margin-right: 10px">{{ scope.row.type }}</span>

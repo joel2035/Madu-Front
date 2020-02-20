@@ -133,7 +133,7 @@ export default {
         city: "",
         tags: "",
         accessibility: "",
-        price: "",
+        price: 1,
         description: ""
       },
 
@@ -173,12 +173,10 @@ export default {
     },
 
     onClickIcon() {
-      // eslint-disable-next-line no-console
-      console.log(this.formData.price);
-      if (this.formData.price <= 3) {
-        this.formData.price = this.formData.price + 1;
-      } else {
-        this.formData.price = this.formData.price - 1;
+      if (this.formData.price < 3) {
+        this.formData.price++;
+      } else if (this.formData.price >= 2) {
+        this.formData.price--;
       }
     },
     addShop() {
