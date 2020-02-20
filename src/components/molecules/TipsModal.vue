@@ -48,7 +48,7 @@
             justify="center"
           >
             <el-button @click="showModal = false">Annuler</el-button>
-            <el-button type="primary" @click="successCallback">Enregister</el-button>
+            <el-button type="primary">Enregister</el-button>
         </el-row>
       </el-form-item>
     </el-form>
